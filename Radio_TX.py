@@ -4,7 +4,7 @@
 # Title: Radio Tx
 # Author: Justin Ried
 # Description: Radio TX
-# Generated: Sat Nov 21 00:04:27 2015
+# Generated: Fri Nov 27 03:53:55 2015
 ##################################################
 
 from gnuradio import analog
@@ -30,7 +30,7 @@ class Radio_TX(grc_wxgui.top_block_gui):
         ##################################################
         # Variables
         ##################################################
-        self.freq = freq = 462560000
+        self.freq = freq = 467700000
         self.variable_static_text_0 = variable_static_text_0 = (3e8/freq)/4
         self.rf_gain = rf_gain = 10
         self.if_gain = if_gain = 25
@@ -100,8 +100,8 @@ class Radio_TX(grc_wxgui.top_block_gui):
         	sizer=_freq_sizer,
         	value=self.freq,
         	callback=self.set_freq,
-        	minimum=461560000,
-        	maximum=463560000,
+        	minimum=466700000,
+        	maximum=468700000,
         	num_steps=100,
         	style=wx.SL_HORIZONTAL,
         	cast=float,
