@@ -1,11 +1,22 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 ##################################################
-# Gnuradio Python Flow Graph
+# GNU Radio Python Flow Graph
 # Title: Radio Tx
 # Author: Justin Ried
 # Description: Radio TX
-# Generated: Fri Nov 27 03:53:55 2015
+# Generated: Sun May 22 05:00:25 2016
 ##################################################
+
+if __name__ == '__main__':
+    import ctypes
+    import sys
+    if sys.platform.startswith('linux'):
+        try:
+            x11 = ctypes.cdll.LoadLibrary('libX11.so')
+            x11.XInitThreads()
+        except:
+            print "Warning: failed to XInitThreads()"
 
 from gnuradio import analog
 from gnuradio import audio
@@ -18,7 +29,9 @@ from gnuradio.wxgui import forms
 from grc_gnuradio import wxgui as grc_wxgui
 from optparse import OptionParser
 import osmosdr
+import time
 import wx
+
 
 class Radio_TX(grc_wxgui.top_block_gui):
 
@@ -30,7 +43,7 @@ class Radio_TX(grc_wxgui.top_block_gui):
         ##################################################
         # Variables
         ##################################################
-        self.freq = freq = 462560000
+        self.freq = freq = 467700000
         self.variable_static_text_0 = variable_static_text_0 = (3e8/freq)/4
         self.rf_gain = rf_gain = 10
         self.if_gain = if_gain = 25
@@ -100,8 +113,8 @@ class Radio_TX(grc_wxgui.top_block_gui):
         	sizer=_freq_sizer,
         	value=self.freq,
         	callback=self.set_freq,
-        	minimum=462540000,
-        	maximum=462570000,
+        	minimum=466700000,
+        	maximum=468700000,
         	num_steps=100,
         	style=wx.SL_HORIZONTAL,
         	cast=float,
@@ -174,13 +187,11 @@ class Radio_TX(grc_wxgui.top_block_gui):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.low_pass_filter_0, 0), (self.rational_resampler_xxx_0, 0))
-        self.connect((self.rational_resampler_xxx_0, 0), (self.analog_wfm_tx_0, 0))
-        self.connect((self.analog_wfm_tx_0, 0), (self.rational_resampler_xxx_0_0, 0))
-        self.connect((self.rational_resampler_xxx_0_0, 0), (self.osmosdr_sink_0, 0))
-        self.connect((self.audio_source_0, 0), (self.low_pass_filter_0, 0))
-
-
+        self.connect((self.analog_wfm_tx_0, 0), (self.rational_resampler_xxx_0_0, 0))    
+        self.connect((self.audio_source_0, 0), (self.low_pass_filter_0, 0))    
+        self.connect((self.low_pass_filter_0, 0), (self.rational_resampler_xxx_0, 0))    
+        self.connect((self.rational_resampler_xxx_0, 0), (self.analog_wfm_tx_0, 0))    
+        self.connect((self.rational_resampler_xxx_0_0, 0), (self.osmosdr_sink_0, 0))    
 
     def get_freq(self):
         return self.freq
@@ -225,19 +236,15 @@ class Radio_TX(grc_wxgui.top_block_gui):
         self._aud_gain_slider.set_value(self.aud_gain)
         self._aud_gain_text_box.set_value(self.aud_gain)
 
-if __name__ == '__main__':
-    import ctypes
-    import sys
-    if sys.platform.startswith('linux'):
-        try:
-            x11 = ctypes.cdll.LoadLibrary('libX11.so')
-            x11.XInitThreads()
-        except:
-            print "Warning: failed to XInitThreads()"
-    parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
-    (options, args) = parser.parse_args()
+
+def main(top_block_cls=Radio_TX, options=None):
     if gr.enable_realtime_scheduling() != gr.RT_OK:
-        print "Error: failed to enable realtime scheduling."
-    tb = Radio_TX()
+        print "Error: failed to enable real-time scheduling."
+
+    tb = top_block_cls()
     tb.Start(True)
     tb.Wait()
+
+
+if __name__ == '__main__':
+    main()
