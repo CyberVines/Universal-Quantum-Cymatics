@@ -1,0 +1,52 @@
+// Universal Quantum Cymatics by Cyber Vines: Venus
+
+OPENUQC 1.0;
+include "uqclib.inc";
+
+qreg q[5];
+creg c[5];
+
+a q[0];
+b q[1];
+c q[2];
+d q[3];
+e q[4];
+f q[0];
+g q[1];
+h q[2];
+i q[3];
+j q[4];
+k q[0];
+l q[1];
+m q[2];
+n q[3];
+o q[4];
+p q[0];
+q q[1];
+r q[2];
+s q[3];
+t q[4];
+u q[0];
+v q[1];
+w q[2];
+x q[3];
+y q[4];
+z q[0];
+, q[1];
+. q[2];
+1 q[3];
+2 q[4];
+3 q[0];
+4 q[1];
+5 q[2];
+6 q[3];
+7 q[4];
+8 q[0];
+9 q[1];
+0 q[2];
+  q[3];
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+measure q[2] -> c[2];
+measure q[3] -> c[3];
+measure q[4] -> c[4];
