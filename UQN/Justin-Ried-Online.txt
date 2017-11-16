@@ -1,0 +1,284 @@
+
+ried.justin@icloud.com:~$ sudo vi Justin-Ried.resume
+C: +1 214-295-8481O: +1 469 225 9610
+
+**** Information Technology Administration ***
+
+
+Infrastructure Administrator 	( IaaS / PaaS / SaaS )
+Systems Administrator 		( Apple / Linux / Unix / Windows )
+Network Administrator 		( IPv6 / IPv4  / IPsec )
+Mobile  Administrator 		( EMM / MDM )
+IoT Administrator		( AI / QN / M2M )
+
+
+EDUCATION
+
+
+* Degree:
+Westwood College, Associates Degree, Computer Network Engineering
+NetAcad / Magna Cum Laude ( 2006 - 2008 )
+
+
+** Certifications:
+US Navy Basic Enlisted Training School (Trained)
+US Navy Basic Enlisted Submarine School (Trained)
+US Navy Store Keeper School (Trained)
+US Navy Computer Systems (Trained)
+US Navy Helms and Plainsmen (Trained)
+US Navy Firefighter (Trained)
+VMware 4.0 5 Day Fast Track (Trained)
+VMware 4.0 Certification (Trained)
+Nimsoft Certification (Trained)
+Apple Certified Support Professional (10.6 Certified)
+Cisco Certified Network Associate (Associates Degree)
+
+
+OBJECTIVE
+
+
+* Full-time employment in the field of Information Technology. Salary and benefits are negotiable; commiserate with expectations of the position. Available to begin work immediately.
+
+
+BACKGROUND
+
+
+* Twenty years of professional experience in technology consulting, working within various platforms and environments including cross platform integration. Experienced in network management, planning, implementation, technology consulting, and deliverables. Outstanding work ethic, driven to exceed expectations and goals.
+
+
+QUALIFICATIONS
+
+
+* Able to operate and manage a wide range of platforms and environments.
+Skilled in maintaining and resolving conflicts in cross platform environments.
+Proactive technician resolving critical systems/network issues before they become problematic.
+Proven ability to create and deliver technology solutions that meet corporate objectives.
+Excellent communication skills, able to explain complex processes in easy-to-understand terms.
+Record of consistent, high-quality performance in Systems/Network Installation, Configurations, Upgrades, Migrations, and Problem Resolution Activities.
+Talented in mapping and executing deliverables; turning business needs into business solutions.
+Well-rounded technician with underlying knowledge of how technology works from the ground up.
+Expert in utilizing old and new technologies in order to offer the best solutions.
+
+
+LANGUAGES
+
+
+* English, HTML, Quantum Cryptography, Radio Frequency Coding, Cipher Cryptology.
+
+
+SKILLS & SUPPORT
+
+
+* HR Administration; SAP HR, SAP Automation, 
+System Administration; UNIX Servers, Linux Servers, Linux Workstations, Mac Servers, Mac Workstations, Windows Servers, Windows Workstations. 
+Network Administration; IP Control, Network, Security, etc.. 
+VM Administration; VMware, vSphere, Xen, Virtualbox, Citrix, etc..  
+AD Administration; AD, AD Manager, AD360, ADAudit, Group Policy, OPEN Directory, etc.. 
+Remote Administration; VPN, RDP, ARP, 3rd party Remote Admin tools, etc.. 
+MDM Administration; Air-Watch, Mobileiron, Blackberry Enterprise Server etc.. 
+Email Administration; Google, ADExchange, Office 360, etc.. 
+Port Administration; All Standard Server Ports, Telnet, SSH, etc...
+Printing/Creative Administration; FollowMe, UniFlow, Security, etc.. 
+VPN/VIP Administration; Apple VPN, Cisco VIP, Cisco VPN, Vyatta VPN, OPEN VPN, etc.. 
+Risk Assessment Administration & Pentest Administration; Kali Linux, Nexpose, NMAP, etc.. 
+End User Administration; IBM Ticketing, Service Now, CA Service Desk, etc.. 
+Data Base Administration; SQL, MySQL, DBMS, etc.. 
+Surveillance Administration; Avigilon, etc.. 
+Self Administration; OpenAir, etc.. 
+Collaboration Administration; Box.com, Gmail, etc.. 
+Global Administration; Unix servers, Apple servers, Windows servers.
+Creative Administration & Development Administration; Air-Watch, Apple APP, etc.. 
+Monitoring Administration; SMNP, Nimsoft, etc...
+Full NOC Administration; VMware Administration, Xen Administration, Air-Watch Administration, Script Administration, Citrix Netscaler Administration etc...
+And Much More...
+
+
+WORK EXPERIENCE
+
+
+* IBM Cloud - Farmers Branch, TX - Full Time
+Advanced Customer Support Administrator ( Sep 2016 – July 2017 )
+** Provided top tier enterprise support to the IBM Cloud infrastructure, also provided support to the VIP support desk.
+Provided client systems administration support for all Fortune 500 and US Federal { FEDPod } for production clients and their Systems Administrators across the IBM Cloud infrastructure.
+Professionally resolved escalated issues via trouble ticket, telephone, and chat.
+Operating Systems – Linux Servers, Red Hat, Fedora, BSD, Debian, Ubuntu, Web Server.
+Software – Exim, Sendmail, Qmail, FTP, SSH, Cpanel, Plesk, Helm, Virtuozzo, VMware, Bind, PHP, MySQL, MSSQL, PostgresServer.
+Security – Ddos diagnostics and resolution, rkhunter, chkrootkit, iptablesNetwork.
+Storage – ISCSI, NAS, Remote backup.
+Networking and Security – Vyatta, Cisco switches, routers and firewall management.
+Advanced server troubleshooting - Internal proprietary systems.
+Security Unix Administrator is a customer facing support role. This role’s primary responsibility is to assist customers and fellow employees in the deployment, configuration, break/fix resolution, security and management, on a variety of networking devices and networking technologies. Interfaced directly with tier2/tier3 support, internal networking departments, and other customer facing groups. Responsible for customer facing technical support, on any and all IBM Bluemix products that are responsible for customer security and network communications: Fortinet security appliance, Citrix Netscaler (VPX/MPX), Vyatta v5400/v5600.
+Core technologies include but are not limited to firewall, VPN, load balancing, layer 2/3. Worked alongside Tier2/Tier3 support team, Managed Services System’s Administrators, and Technical Account Managers (TAM) to solution and resolve customer issues. Interacted directly with Vendor support.
+Troubleshot and identified network issues as they arise and escalate to internal networking team(s) as needed/required. Network protocols/technologies: BGP, OSPF, VLAN, IPv4/6, LACP, IPSEC, GRE, and many others. Recognized and prioritized critical tasks independently.
+Shift-based position for a 24/7/365 department; worked a shift that included weekend and holiday work, off schedule education/training, and participated in an on-call rotation.
+
+
+* Resolvity Inc – Irving, TX - Contract
+Linux Systems Administrator ( May 2016 – June 2016 )
+** Provided Linux Systems Administration coverage for small but dynamic group working in AI.
+Supported Linux systems maintenance, troubleshooting, networking support, and server builds.
+Assured PCI Compliance for all Linux systems.
+Worked on call 24/7 to ensure constant uptime.
+Worked onsite and remotely as required.
+
+
+* CBRE Group - Dallas, TX - Contract
+Global Support & Infrastructure Administrator / MDM Air-Watch Administrator ( Jan 2016 - March 2016 )
+** Advanced to the highest levels of support, including levels III/IV for the enterprise company CBRE Group.
+Provided simultaneous support across several groups, including infrastructure and enterprise systems.
+Supported, administered, and trained personnel on Air-Watch Mobility Management.
+Migrated newly acquired company onto CBRE’s system, integrating Mobile Iron (MDM Solution) onto Air-Watch.
+Ran and maintained daily reports using Air-Watch.
+Assisted Field Technicians by setting up and configuring assigned iPad devices for company executives.
+Recommended and implemented new mobile hardware for the company, including 40,000+ users.
+Integrated and updated new internal iPhone production applications.
+Integrated Apple Volume program with Air-Watch.
+Manually updated production servers also utilized Symantec Altiris.
+Provided solution advisement as OPSEC built a profile in order to setup and implement a Media Access Control Layer Filtering utilizing Cisco ISE. For a bring-your-own device environment. Worked with OG mapping with AD integration, Global Office 365 configurations, Disaster Recovery, Server Mirroring, virtualized VMWare servers, VMWare Horizon, and Active Directory. Consulted with CBRE on managing personnel and improving company relations.
+
+
+* Fossil Group - Richardson, TX - Contract
+NOC Administrator / Systems Administrator / MDM Administrator / IS Operations ( July 2015 - Oct 2015 )
+** Automated the creation and modification of Active Directory user accounts utilizing SAP LDAP Interface programs and Active Directory which directly effected the hiring, re-hiring, and termination of all Fossil employees.
+Worked as the Sr. Active Directory Consultant and learned the environment, processes, and solution sets involved very quickly.
+Responsible to perform and manage other resources in order to facilitate mass updates in the AD environment, write scripts for disabling, enabling, assigning passwords, and other more sophisticated procedures. Advised the Fossil team of many approaches in order to ensure appropriate systems access controls were in place in order to safe guard the systems environment. Committed to the team, ensuring success in the Project Hyper-Care Task.
+
+
+* Cyber Vines - Cedar Hill, TX - Full Time
+CEO / CIO ( April 2011 - Aug 2016 ) ( Aug 2017 - Present )
+** Successfully managed company merger from DCE, Inc. to Cyber Vines, LLC. and maintained clients’ contracts throughout transition.
+Implemented, configured, and installed CA’s Nimsoft, a SNMP Management Interface on VMWare servers throughout the United States and in Mexico City, in a high-end, highly secured corporate data facility.
+Lead, planned, and deployed the renovation of the University of Texas Arlington’s  (UTA) UCOMM and Video departments, including upgrades to Mac Video Stations, Server Stations, and Work Stations. Designed UTA’s movie studio-fiber channel RAID backup and storage system for the entire video department.
+Setup a dual monitor 4k-display system for UTA, utilizing new iMac Pro Servers with all Fiber connected systems to a 32TB RAID system.
+Implemented a SANLink and 10G Fabric Switch to two Promise RAID Systems for UTA’s ongoing storage.
+Created a full disaster recovery 32 TB Fiber RAID system.
+Cooperated with and worked hand in hand with UTA’s Office of Information Security (OIT) office in order to encourage cooperation between departments.
+Fully implemented an iPad and Windows MDM solution for West ISD in West, TX.
+Setup and implemented a mobile ticketing system for the city of Austin Transit Authority, CAP Metro, including setup of 75 city buses.
+Experienced in working with third party vendors, worked with CDW on various tech consulting jobs including VMWare setups and server deployments.
+Maintained preventative maintenance, upgrades, and network services as the sole IT Consultant for various businesses in the DFW area, including a law firm, Dr’s office, CPA, SEO company, design firm, wedding planners, construction company, strategic city planning company, wind turbine company, and many more.
+Regularly provided remote support for various clients throughout the United States, London, Brazil, and Peru.
+Built, migrated and maintained EC2 cloud platforms and servers.
+Installed, configured, and maintained VMWare and Hyper-V Servers for virtualization.
+Virtualized physical servers and workstations for QA and Tech Support team.
+Supported and maintained Active Directory, Group Policy, Clustering, Kerberos, and encryption.
+Administered Windows Server 2003, 2008 and 2012.
+Administered Mac Server 10.7, 10.8, 10.9, and 10.10
+Installed, maintained and configured Linux, Ubuntu Servers.
+Maintained and administered Exchange 2003, 2007, 2010 and Office365 cloud accounts.
+Performed troubleshooting of LAN, WAN, DHCP, DNS and WINS network issues.
+Maintained and managed SQL Servers 2005, 2008, 2010 and 2012.
+Supported and managed SAN, NAS and other network storage servers.
+Performed Disaster Recovery for servers and workstations with Backup Exec Server 2012.
+Installed System Center Server and configured the application for testing (SCCM 2010/2012).
+Installed Terminal Servers, Certificate Server, Licensing Server and remote application gateway.
+Configured and replaced Cisco, Belkin, Netgear, Polycom phones, network equipment, routers/switches, etc.
+Created images for developers, sales teams, and accounting departments.
+Performed hardware installations, configurations, software updates, and system testing.
+Administered network security by the appropriate access to users and identifying possible security threats over VPN and Firewalls.
+Ensured data integrity by performing and verifying regular backups of files and databases.
+Performed VOIP administration from admin portal when necessary.
+Monitored, updated licenses for Symantec Endpoint Protection corporate solutions,
+Used remote tools to troubleshoot remote laptops, workstations and servers (RDP, ARD, VNC, TeamViewer, Bomgar, Logmein, and Join.me)
+Maintained and updated web server with IIS and Tomcat.
+Performed Scripting with Python, PowerShell, and Terminal for automation.
+Supported internal staff and customer in a timely and professional manner.
+Created and maintained up to date documentation.
+Recommended the purchase of network related hardware and software to meet companies’ needs.
+Developed policy and procedures for administration of the IS Department of multiple companies.
+Provided 24X7 on call support.
+
+
+* Digital Criterion Enterprises - Dallas, TX - Full Time
+Southern Regional Manager / Senior Business Technology Consultant ( June 2010 - April 2011 )
+** Transferred all services and duties to Cyber Vines, LLC
+
+
+* JR Business Technologies - Dallas, TX - Full Time
+Senior Systems Administrator ( Sept 2009 - June 2010 )
+** Worked with business clients such as General Electric and Dave & Buster’s, providing ongoing technical support services.
+Managed up to 500 computers and servers at a time, providing 24X7 on call support.
+Managed high end Service Level Agreements, resulting in rapid turn around and immediate client support.
+Recommended the purchase of network related hardware and software to meet companies’ needs.
+Developed policy and procedures for administration of the IS Department of multiple companies.
+Assisted residential clients and companies with purchasing the right products for the home or office.
+Setup hardware and software for a wide array of residential and business clients
+Removed viruses, provided data recovery services and migration, wiring, routers, switches, internet issues, connectivity issues, server set up and maintenance, networking, and more.
+Supported software suites, including Dental and Medical software suites.
+
+
+* PC House Call - Richardson, TX - Full Time
+Network Engineer / Senior IT Technician ( July 2008 - Sep 2009 )
+** Responsible for maintenance and repair of 12+ businesses with 1-100 users operating Server 2003 / Exchange 2007.
+Earned over $100,000 in pure profit for PC House Call for 2008 by providing IT services to clients.
+Senior IT Technician; evaluated other employees and acted as mentor to less experienced personnel.
+Provided server, network, and workstation support to a wide range of corporate customers, including support of user access to corporate network and applications both on the network as well as through remote VPN access.
+Supported office phones, video conferencing, and remote access.
+Installed and upgraded desktops/laptops’ different operating systems and software for users through SMS.
+Performed daily set-ups, installations, upgrades and general maintenance.
+Established new clients from referrals based on my performance.
+Provided computer/network solutions for all operating systems, computers, phones, and technologies.
+Responsible for company car, along with other company equipment, and sensitive data.
+Traveled throughout the DFW area providing services for a variety of professional clients.
+Configured and maintained all network printers and copying machines for clients.
+Maintained Company’s asset database and inventory of equipment.
+Offered advanced administration of Server 2003, Small Business Server 2003, Microsoft SharePoint, Server 2008, Mac X-Serve, Remote Desktop, VMWare, and Parallels for Business.
+Provided 24 x 7 on call support as part of a scheduled rotation with other team members.
+
+
+* Geek Squad - Concord, NH & Flower Mound, TX - Full Time
+Senior Special Agent ( Sep 2005 - June 2008 )
+** Worked in Concord, NH and moved to the Flower Mound, TX office.
+Began as an in-store technician and was promoted several times, finally becoming a Double Agent under Best Buy for Business.
+Acting CIO for 5 different companies and provided support for various other companies.
+Capable of evaluating customers’ life styles, suggesting the best products and services to meet their known and unknown needs.
+Responsible for maintenance and repair of 15+ businesses with 5-50 users operating Server 2003/ Exchange 2007.
+Offered advanced administration of Server 2003, Small Business Server 2003, Microsoft SharePoint, Mac X-Serve, Remote Desktop, VMware, and Parallels for Business.
+Trusted with company Geek Squad vehicle and laptop equipment.
+Tirelessly performed overnight data recovery services in an emergency situation, which saved a law firm’s critical data and nearly half a million dollars.
+Provided services for residential clients initially and was later promoted in order to provide services for business clients.
+Monitored network and systems with remote network monitoring tools.
+Performed trouble shooting and escalated to vendors if necessary.
+Cross-trained to fill several different roles in multiple locations.
+Responsible for network and server administration for business clients throughout the DFW area.
+Assessed client needs and recommended solutions to ensure that the client's technology worked towards the client's business and personal needs.
+Created complete and accurate call history using a support request management system.
+Trained employees on using technical applications and coordinated with them as a team player.
+
+
+* R.J. Cole Solutions - Manchester, NH - Full Time
+Field Service Technician / IT Administrator ( Sep 2005 - Aug 2006 )
+** Provided technology solutions for doctors’ and dentists’ offices utilizing Electronic Medical Records (EMR).
+Traveled nation-wide, ensured the security of up to $500,000 worth of computer materials, completed weekly time sheets, expense reports and all client documentation and support information for A4 Health Systems.
+Supported the following software: A4 HealthMatics EMR, Ntierprise, OMS Vision, Endo Vision, Dolphin, Dentrix, Veritas Backup Exec, and APC Power Chute, Fax Press, Citrix ICA Web Client, Oracle & EMR Database, Thin and Fat Client Solutions, Dell Server Resources and more.
+Provided support to ensure LAN/WAN networking and internet connectivity and data integrity.
+Administered the following: Mail Servers (Microsoft Exchange & Linux/Unix), SQL Server Databases, Windows 2000 & 2003 Active Directory Management, Windows 2000 & 2003 Servers, Windows 2000 and 2003 Terminal Servers, Windows 2000 & 2003 in 30+ workstation 2+ server 1+ terminal server environments, Linux-based servers, Macintosh computers running Mac OS X, Wireless access points, advanced routers, switches, hardware firewalls, ports and securities involved in maintaining a fully operational and secure network.
+Performed troubleshooting activities for CISCO, Dell, Sonicwall, SOHO, Netgear, Watchguard and more networking devices.
+Provided extensive software and server support, including applying necessary service packs, securities and upgrades.
+Heavy troubleshooting and issue resolution experience with all key technology solutions.
+Supported Wireless networking configuration and VPN.
+Maintained/upgraded hardware, operating systems, LAN/WAN, DNS, TCP/IP, WINS, DHCP and IIS functions.
+
+
+* U.S. Navy - Norfolk, VA - Full Time
+SKSN Inventory Control ( Jan 2001 - Dec 2004 )
+** Supported division’s computers and repaired all operating systems and hardware for Navy division using Windows Server 2003, Windows Server 2000, Windows NT Server 4.0, Hewlett Packard Printers, Dell Computers and Laptops with IBM Server and Navy Pure Data Security Software.
+Updated software, backup systems, and security measures.
+Maintained inventory control for the USS Minneapolis St Paul 708 Submarine.
+Expertly processed, coded, quantified, procured, and delivered all equipment/products onboard the submarine.
+Learned critical attention to detail skills, expertly accounting for and tracking expensive Naval equipment.
+Performed duties as the helms and plainsman, essentially driving a US Naval nuclear submarine.
+Trained in weapons and watch duties, qualifying as a 9mm and rifle specialist.
+Granted security clearance above Top Secret, Top Secret Compartmentalized (TSC) Clearance.
+Navy trained submarine Fire Fighter.
+
+
+* CompUSA Corporate - Dallas, TX - Full Time
+Senior Phone Support Specialist ( Jan 1997 - Jan 2000 )
+** Provided support for all of CompUSA’s supported equipment through 1-800-dial-a-tech.
+Provided end to end solutions under the company’s slogan, “You name it, we support it.”
+Held contracts with companies around the United States and provided support for corporate contracts which covered equipment such as computers, software, peripherals, printers, networking equipment, and more. All equipment sold at the CompUSA stores was supported through this phone line.
+Supported overflow activities for company hardware (such as HP, Compaq, AMD, Intel, and many more).
+
+
+EOF
