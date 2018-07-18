@@ -1,0 +1,243 @@
+// Universal Quantum Cymatics by Cyber Vines: Citigroup Inc.
+
+OPENUQC 1.0;
+include "uqclib.inc";
+
+ureg u[108];
+qreg q[40];
+creg c[72];
+
+#creg c[12];
+###creg c[192];
+#####creg c[572];
+#######creg c[1572];
+
+##creg c[8];
+####creg c[27];
+######creg c[125];
+
+u[1]; -> 0
+u[2]; -> 0
+u[3]; -> 0
+u[4]; -> 0
+u[5]; -> 0
+u[6]; -> 0
+u[7]; -> 0
+u[8]; -> 0
+u[9]; -> 0
+u[10]; -> 0
+u[11]; -> 0
+u[12]; -> 0
+u[13]; -> 0
+u[14]; -> 0
+u[15]; -> 0
+u[16]; -> 0
+u[17]; -> 0
+u[18]; -> 0
+u[19]; -> 0
+u[20]; -> 0
+u[21]; -> 0
+u[22]; -> 0
+u[23]; -> 0
+u[24]; -> 0
+u[25]; -> 0
+u[26]; -> 0
+u[27]; -> 0
+u[28]; -> 0
+u[29]; -> 0
+u[30]; -> 0
+u[31]; -> 0
+u[32]; -> 0
+u[33]; -> 0
+u[34]; -> 0
+u[35]; -> 0
+u[36]; -> 0
+u[37]; -> 0
+u[38]; -> 0
+u[39]; -> 0
+u[40]; -> 0
+u[41]; -> 0
+u[42]; -> 0
+u[43]; -> 0
+u[44]; -> 0
+u[45]; -> 0
+u[46]; -> 0
+u[47]; -> 0
+u[48]; -> 0
+u[49]; -> 0
+u[50]; -> 0
+u[51]; -> 0
+u[52]; -> 0
+u[53]; -> 0
+u[54]; -> 0
+u[55]; -> 0
+u[56]; -> 0
+u[57]; -> 0
+u[58]; -> 0
+u[59]; -> 0
+u[60]; -> 0
+u[61]; -> 0
+u[62]; -> 0
+u[63]; -> 0
+u[64]; -> 0
+u[65]; -> 0
+u[66]; -> 0
+u[67]; -> 0
+u[68]; -> 0
+u[69]; -> 0
+u[70]; -> 0
+u[71]; -> 0
+u[72]; -> 0
+u[73]; -> 0
+u[74]; -> 0
+u[75]; -> 0
+u[76]; -> 0
+u[77]; -> 0
+u[78]; -> 0
+u[79]; -> 0
+u[80]; -> 0
+u[81]; -> 0
+u[82]; -> 0
+u[83]; -> 0
+u[84]; -> 0
+u[85]; -> 0
+u[86]; -> 0
+u[87]; -> 0
+u[88]; -> 0
+u[89]; -> 0
+u[90]; -> 0
+u[91]; -> 0
+u[92]; -> 0
+u[93]; -> 0
+u[94]; -> 0
+u[95]; -> 0
+u[96]; -> 0
+u[97]; -> 0
+u[98]; -> 0
+u[99]; -> 0
+u[100]; -> 0
+u[101]; -> 0
+u[102]; -> 0
+u[103]; -> 0
+u[104]; -> 0
+u[105]; -> 0
+u[106]; -> 0
+u[107]; -> 0
+u[108]; -> 0
+
+a q[1];
+b q[2];
+c q[3];
+d q[4];
+e q[5];
+f q[6];
+g q[7];
+h q[8];
+i q[9];
+j q[10];
+k q[11];
+l q[12];
+m q[13];
+n q[14];
+o q[15];
+p q[16];
+q q[17];
+r q[18];
+s q[19];
+t q[20];
+u q[21];
+v q[22];
+w q[23];
+x q[24];
+y q[25];
+z q[26];
+  q[27];
+. q[28];
+, q[29];
+; q[30];
+1 q[31];
+2 q[32];
+3 q[33];
+4 q[34];
+5 q[35];
+6 q[36];
+7 q[37];
+8 q[38];
+9 q[39];
+0 q[40];
+
+measure q[1] -> c[1];
+measure q[2] -> c[2];
+measure q[3] -> c[3];
+measure q[4] -> c[4];
+measure q[5] -> c[5];
+measure q[6] -> c[6];
+measure q[7] -> c[7];
+measure q[8] -> c[8];
+measure q[9] -> c[9];
+measure q[10] -> c[10];
+measure q[11] -> c[11];
+measure q[12] -> c[12];
+measure q[13] -> c[13];
+measure q[14] -> c[14];
+measure q[15] -> c[15];
+measure q[16] -> c[16];
+measure q[17] -> c[17];
+measure q[18] -> c[18];
+measure q[19] -> c[19];
+measure q[20] -> c[20];
+measure q[21] -> c[21];
+measure q[22] -> c[22];
+measure q[23] -> c[23];
+measure q[24] -> c[24];
+measure q[25] -> c[25];
+measure q[26] -> c[26];
+measure q[27] -> c[27];
+measure q[28] -> c[28];
+measure q[29] -> c[29];
+measure q[30] -> c[30];
+measure q[31] -> c[31];
+measure q[32] -> c[32];
+measure q[33] -> c[33];
+measure q[34] -> c[34];
+measure q[35] -> c[35];
+measure q[36] -> c[36];
+measure q[37] -> c[37];
+measure q[38] -> c[38];
+measure q[39] -> c[39];
+measure q[40] -> c[40];
+measure q[1] -> c[41];
+measure q[2] -> c[42];
+measure q[3] -> c[43];
+measure q[4] -> c[44];
+measure q[5] -> c[45];
+measure q[6] -> c[46];
+measure q[7] -> c[47];
+measure q[8] -> c[48];
+measure q[9] -> c[49];
+measure q[10] -> c[50];
+measure q[11] -> c[51];
+measure q[12] -> c[52];
+measure q[13] -> c[53];
+measure q[14] -> c[54];
+measure q[15] -> c[55];
+measure q[16] -> c[56];
+measure q[17] -> c[57];
+measure q[18] -> c[58];
+measure q[19] -> c[59];
+measure q[20] -> c[60];
+measure q[21] -> c[61];
+measure q[22] -> c[62];
+measure q[23] -> c[63];
+measure q[24] -> c[64];
+measure q[25] -> c[65];
+measure q[26] -> c[66];
+measure q[27] -> c[67];
+measure q[28] -> c[68];
+measure q[29] -> c[69];
+measure q[30] -> c[70];
+measure q[31] -> c[71];
+measure q[32] -> c[72];
+
+
+© 2011 - 2018 Cyber Vines, LLC
