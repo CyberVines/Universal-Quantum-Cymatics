@@ -41,8 +41,12 @@ sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso
 
 ## Kali Install
 ## Add Kali Repositories - Add Kali Repositories
-# deb http://http.kali.org/kali kali-rolling main non-free contrib
-# deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+```
+deb http://http.kali.org/kali kali-rolling main non-free contrib
+```
+```
+deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+```
 ```
 sudo nano /etc/apt/sources.list
 ```
