@@ -23,7 +23,8 @@
 ## https://www.ubuntu.com/download/desktop
 
 ## Kali Install
-sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso
+```sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso
+```
 
 ## Hackrf ONE
 ## Linux 4.x Linux 64-bit
@@ -41,14 +42,18 @@ sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso
 ## Add Kali Repositories - Add Kali Repositories
 # deb http://http.kali.org/kali kali-rolling main non-free contrib
 # deb-src http://http.kali.org/kali kali-rolling main non-free contrib
-sudo nano /etc/apt/sources.list
+```sudo nano /etc/apt/sources.list
+```
 
 ## Update
-sudo apt update
+```sudo apt update
+```
 
-sudo apt upgrade
+```sudo apt upgrade
+```
 
-sudo apt autoremove 
+```sudo apt autoremove
+```
 
 ## Guest Install 
 cd vmware-tools-distrib/
