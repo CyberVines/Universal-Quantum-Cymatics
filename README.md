@@ -101,10 +101,8 @@ sudo apt install kali-linux-all
 ```
 host cybervines.com
 ```
-
 ```
 sudo apt install speedtest-cli
-```
 ```
 ```
 speedtest-cli
@@ -114,7 +112,6 @@ speedtest-cli
 ```
 sudo apt-get update
 ```
-
 ```
 sudo apt install gqrx-sdr gr-dab gr-dab-dev gr-osmosdr hackrf libhackrf-dev libhackrf0 python3-numpy python3-psutil python3-zmq python3-pyqt5 g++ libpython3-dev python3-pip cython3 pavucontrol fldigi
 ```
@@ -123,12 +120,12 @@ sudo pip3 install urh
 ```
 
 ## Tools
-
 ```
 sudo apt install emacs
 ```
 ```
 sudo apt install ccrypt
+```
 ```
 sudo apt install iperf iperf3 
 ```
@@ -143,6 +140,7 @@ sudo apt upgrade
 ```
 sudo apt autoremove 
 ```
+
 ## NTP
 ```
 sudo apt install ntpdate
@@ -150,6 +148,7 @@ sudo apt install ntpdate
 ```
 sudo ntpdate -qu time.apple.com
 ```
+
 ## UQC / UQN 
 ```
 cd ~/Documents
@@ -157,6 +156,7 @@ cd ~/Documents
 ```
 sudo git clone https://github.com/CyberVines/Universal-Quantum-Cymatics.git
 ```
+
 ## Connect Hackrf ONE
 ```
 sudo hackrf_info 
