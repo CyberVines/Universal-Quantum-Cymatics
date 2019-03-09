@@ -238,3 +238,5 @@ measure q[29] -> c[69];
 measure q[30] -> c[70];
 measure q[31] -> c[71];
 measure q[32] -> c[72];
+
+EOF
