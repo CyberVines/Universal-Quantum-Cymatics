@@ -13,14 +13,10 @@
 ## | '--'3|| '--25|| '--'2|| '--'5|| '--18|  ((22)) | '--22|| '--'9|| '--14|| '--'5|| '--19|
 ## `------'`------'`------'`------'`------'    '-'  `------'`------'`------'`------'`------'
 
-## Hi there, nice to meet you!
-
+## CV Support
 ## VR - https://account.altvr.com/worlds/1092922703423210403/spaces/1092922703574205348
-
 ## SL - https://cybervines.slack.com
 ## Email - webadmin@cybervines.com
-
-## @ 89
 
 ## Ubuntu Install 
 ## https://www.ubuntu.com/download/desktop
