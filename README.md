@@ -22,6 +22,7 @@
 ## Ubuntu Install 
 ## https://www.ubuntu.com/download/desktop
 
+
 ## Kali Install
 ```
 sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso
@@ -39,6 +40,7 @@ sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso
 ## Sound Default
 ## USB 2.0 & 3.0
 
+
 ## Kali Install
 ## Add Kali Repositories - Add Kali Repositories
 ```
@@ -51,6 +53,7 @@ deb-src http://http.kali.org/kali kali-rolling main non-free contrib
 sudo nano /etc/apt/sources.list
 ```
 
+
 ## Update
 ```
 sudo apt update
@@ -62,6 +65,7 @@ sudo apt upgrade
 sudo apt autoremove
 ```
 
+
 ## Guest Install 
 ```
 cd vmware-tools-distrib/
@@ -72,6 +76,7 @@ sudo ./vmware-install.pl
 ```
 sudo shutdown now
 ```
+
 
 ## Kali Install
 ```
@@ -101,6 +106,8 @@ sudo apt install kali-linux-full
 ```
 sudo apt install kali-linux-all
 ```
+
+
 ## 20+ Mbps
 ```
 host cybervines.com
@@ -111,6 +118,7 @@ sudo apt install speedtest-cli
 ```
 speedtest-cli
 ```
+
 
 ## SDR Install 
 ```
@@ -123,6 +131,7 @@ sudo apt install gqrx-sdr gr-dab gr-dab-dev gr-osmosdr hackrf libhackrf-dev libh
 sudo pip3 install urh
 ```
 
+
 ## Tools
 ```
 sudo apt install emacs
@@ -133,6 +142,7 @@ sudo apt install ccrypt
 ```
 sudo apt install iperf iperf3 
 ```
+
 
 ## Update
 ```
@@ -145,6 +155,7 @@ sudo apt upgrade
 sudo apt autoremove 
 ```
 
+
 ## NTP
 ```
 sudo apt install ntpdate
@@ -153,6 +164,7 @@ sudo apt install ntpdate
 sudo ntpdate -qu time.apple.com
 ```
 
+
 ## UQC / UQN 
 ```
 cd ~/Documents
@@ -160,6 +172,7 @@ cd ~/Documents
 ```
 sudo git clone https://github.com/CyberVines/Universal-Quantum-Cymatics.git
 ```
+
 
 ## Connect Hackrf ONE
 ```
@@ -175,6 +188,7 @@ sudo fldigi
 sudo gnuradio-companion
 ```
 
+
 ## Configure SDR
 # gnuradio-companion:
 # Open Play.grc
@@ -183,3 +197,6 @@ sudo gnuradio-companion
 
 ## Family Radio Service (FRS) - https://en.wikipedia.org/wiki/Family_Radio_Service
 ## General Mobile Radio Service (GMRS) - https://en.wikipedia.org/wiki/General_Mobile_Radio_Service
+
+
+## EOF
