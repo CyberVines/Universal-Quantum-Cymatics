@@ -51,21 +51,23 @@ sudo nano /etc/apt/sources.list
 ```
 sudo apt update
 ```
-
 ```
 sudo apt upgrade
 ```
-
 ```
 sudo apt autoremove
 ```
 
 ## Guest Install 
+```
 cd vmware-tools-distrib/
-
+```
+```
 sudo ./vmware-install.pl 
-
-shutdown now
+```
+```
+sudo shutdown now
+```
 
 ## Kali Install
 sudo apt install kali-linux-sdr
