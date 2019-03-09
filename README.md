@@ -22,8 +22,8 @@
 ## Ubuntu Install 
 ## https://www.ubuntu.com/download/desktop
 
-,,,## Kali Install
-sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso,,,
+'''## Kali Install
+sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso'''
 
 ## Hackrf ONE
 ## Linux 4.x Linux 64-bit
