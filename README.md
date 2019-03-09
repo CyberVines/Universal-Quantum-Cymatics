@@ -22,7 +22,7 @@
 ## @ 89
 
 ## Ubuntu Install 
-https://www.ubuntu.com/download/desktop
+## https://www.ubuntu.com/download/desktop
 
 ## Kali Install
 sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso
@@ -84,7 +84,7 @@ sudo apt update
 sudo apt upgrade
 sudo apt autoremove 
 
-## NTP 
+## NTP
 sudo apt install ntpdate
 sudo ntpdate -qu time.apple.com
 
