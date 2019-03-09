@@ -198,5 +198,4 @@ sudo gnuradio-companion
 ## Family Radio Service (FRS) - https://en.wikipedia.org/wiki/Family_Radio_Service
 ## General Mobile Radio Service (GMRS) - https://en.wikipedia.org/wiki/General_Mobile_Radio_Service
 
-
 ## EOF
