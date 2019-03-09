@@ -1,22 +1,104 @@
-@ 89
+## @ 89
 
-.------..------..------..------..------..------..------.         .------..------.        
-|W.--. ||E.--. ||L.--. ||C.--. ||O.--. ||M.--. ||E.--. | .-.     |T.--. ||O.--. |        
-| :/\: || (\/) || :/\: || :/\: || :/\: || (\/) || (\/) |((3))    | :/\: || :/\: |        
-| :\/: || :\/: || (__) || :\/: || :\/: || :\/: || :\/: | '-.-.   | (__) || :\/: |        
-| '--23|| '--'5|| '--12|| '--'3|| '--15|| '--13|| '--'5|  ((22)) | '--20|| '--15|        
-`------'`------'`------'`------'`------'`------'`------'    '-'  `------'`------'        
-.------..------..------..------..------.         .------..------..------..------..------.
-|C.--. ||Y.--. ||B.--. ||E.--. ||R.--. | .-.     |V.--. ||I.--. ||N.--. ||E.--. ||S.--. |
-| :/\: || (\/) || :(): || (\/) || :(): |((3))    | :(): || (\/) || :(): || (\/) || :/\: |
-| :\/: || :\/: || ()() || :\/: || ()() | '-.-.   | ()() || :\/: || ()() || :\/: || :\/: |
-| '--'3|| '--25|| '--'2|| '--'5|| '--18|  ((22)) | '--22|| '--'9|| '--14|| '--'5|| '--19|
-`------'`------'`------'`------'`------'    '-'  `------'`------'`------'`------'`------'
+## .------..------..------..------..------..------..------.         .------..------.        
+## |W.--. ||E.--. ||L.--. ||C.--. ||O.--. ||M.--. ||E.--. | .-.     |T.--. ||O.--. |        
+## | :/\: || (\/) || :/\: || :/\: || :/\: || (\/) || (\/) |((3))    | :/\: || :/\: |        
+## | :\/: || :\/: || (__) || :\/: || :\/: || :\/: || :\/: | '-.-.   | (__) || :\/: |        
+## | '--23|| '--'5|| '--12|| '--'3|| '--15|| '--13|| '--'5|  ((22)) | '--20|| '--15|        
+## `------'`------'`------'`------'`------'`------'`------'    '-'  `------'`------'        
+## .------..------..------..------..------.         .------..------..------..------..------.
+## |C.--. ||Y.--. ||B.--. ||E.--. ||R.--. | .-.     |V.--. ||I.--. ||N.--. ||E.--. ||S.--. |
+## | :/\: || (\/) || :(): || (\/) || :(): |((3))    | :(): || (\/) || :(): || (\/) || :/\: |
+## | :\/: || :\/: || ()() || :\/: || ()() | '-.-.   | ()() || :\/: || ()() || :\/: || :\/: |
+## | '--'3|| '--25|| '--'2|| '--'5|| '--18|  ((22)) | '--22|| '--'9|| '--14|| '--'5|| '--19|
+## `------'`------'`------'`------'`------'    '-'  `------'`------'`------'`------'`------'
 
-Hi there, nice to meet you!
+## Hi there, nice to meet you!
 
-VR - https://account.altvr.com/worlds/1092922703423210403/spaces/1092922703574205348
+## VR - https://account.altvr.com/worlds/1092922703423210403/spaces/1092922703574205348
 
-SL - https://cybervines.slack.com
+## SL - https://cybervines.slack.com
 
-@ 89
+## @ 89
+
+## Ubuntu Install 
+https://www.ubuntu.com/download/desktop
+
+## Kali Install
+sudo wget https://cdimage.kali.org/kali-2019.1a/kali-linux-2019.1a-amd64.iso
+
+## Hackrf ONE
+## Linux 4.x Linux 64-bit
+## UEFI
+## Processor 4
+## Memory 6144
+## Enable Hypervisor
+## Graphic 1024
+## LAN Static Public IPv6
+## Hard Drive 72 GB
+## Sound Default
+## USB 2.0 & 3.0
+
+sudo nano /etc/apt/sources.list
+
+## Kali Install
+## Add Kali Repositories - Add Kali Repositories
+# deb http://http.kali.org/kali kali-rolling main non-free contrib
+# deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove 
+
+cd vmware-tools-distrib/
+sudo ./vmware-install.pl 
+shutdown now
+
+## Power ON
+
+## Kali Install
+sudo apt install kali-linux-sdr
+sudo apt install kali-linux-nethunter 
+sudo apt install kali-linux-rfid 
+sudo apt install kali-linux-wireless 
+sudo apt install kali-linux-voip
+sudo apt install kali-linux-pwtools 
+sudo apt install kali-linux-web
+sudo apt install kali-linux-full
+sudo apt install kali-linux-all
+
+## 20+ Mbps
+host cybervines.com
+sudo apt install speedtest-cli
+speedtest-cli
+
+sudo apt-get update
+sudo apt install gqrx-sdr gr-dab gr-dab-dev gr-osmosdr hackrf libhackrf-dev libhackrf0 python3-numpy python3-psutil python3-zmq python3-pyqt5 g++ libpython3-dev python3-pip cython3 pavucontrol fldigi
+sudo pip3 install urh
+
+sudo apt install emacs
+sudo apt install ccrypt
+sudo apt install iperf iperf3 
+
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove 
+
+## NTP 
+sudo apt install ntpdate
+sudo ntpdate -qu time.apple.com
+
+cd ~/Documents
+sudo git clone https://github.com/CyberVines/Universal-Quantum-Cymatics.git
+
+## Connect Hackrf ONE
+sudo hackrf_info 
+sudo pavucontrol
+sudo fldigi
+sudo gnuradio-companion
+
+## Configure SDR
+# gnuradio-companion:
+# Open Play.grc
+# Open RadioTX.grc
+# Open Record.grc
