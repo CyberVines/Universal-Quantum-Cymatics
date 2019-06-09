@@ -14,7 +14,7 @@
 ## `------'`------'`------'`------'`------'    '-'  `------'`------'`------'`------'`------'
 ##########################################################################################
 ## CV Support
-## VR - https://account.altvr.com/worlds/1092922703423210403/spaces/1184116507639021785
+## VR Worlds - https://account.altvr.com/worlds/1092922703423210403
 ## SL - https://cybervines.slack.com
 ## Email - webadmin@cybervines.com
 
