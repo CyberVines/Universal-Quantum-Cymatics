@@ -77,6 +77,45 @@ http://thelighttotheworld.org
 
 *** WORK EXPERIENCE ***
 
+Cyber Vines​ - Cedar Hill, TX - Full Time
+CEO / CIO - April 2011 - Aug 2016, Aug 2017 - Present
+Successfully managed company merger from DCE, Inc. to Cyber Vines, LLC. and maintained clients’ contracts throughout transition.
+Implemented, configured, and installed CA’s Nimsoft, a SNMP Management Interface on VMWare servers throughout the United States and in Mexico City, in a high-end, highly secured corporate data facility.
+Lead, planned, and deployed the renovation of the University of Texas Arlington’s (UTA) UCOMM and Video departments, including upgrades to Mac Video Stations, Server Stations, and Work Stations. Designed UTA’s movie studio-fiber channel RAID backup and storage system for the entire video department.
+Setup a dual monitor 4k-display system for UTA, utilizing new iMac Pro Servers with all Fiber connected systems to a 32TB RAID system.
+Implemented a SANLink and 10G Fabric Switch to two Promise RAID Systems for UTA’s ongoing storage.
+Created a full disaster recovery 32 TB Fiber RAID system.
+Cooperated with and worked hand in hand with UTA’s Office of Information Security (OIT) office in order to encourage cooperation between departments.
+Fully implemented an iPad and Windows MDM solution for West ISD in West, TX.
+Setup and implemented a mobile ticketing system for the city of Austin Transit Authority, CAP Metro, including setup of 75 city buses.
+Experienced in working with third party vendors, worked with CDW on various tech consulting jobs including VMWare setups and server deployments.
+Maintained preventative maintenance, upgrades, and network services as the sole IT Consultant for various businesses in the DFW area, including a law firm, Dr’s office, CPA, SEO company, design firm, wedding planners, construction company, strategic city planning company, wind turbine company, and many more.
+Regularly provided remote support for various clients throughout the United States, London, Brazil, and Peru.
+Built, migrated and maintained EC2 cloud platforms and servers.
+Installed, configured, and maintained VMWare and Hyper-V Servers for virtualization.
+Virtualized physical servers and workstations for QA and Tech Support team.
+Supported and maintained Active Directory, Group Policy, Clustering, Kerberos, and encryption. Administered Windows Server 2003, 2008 and 2012.
+Administered Mac Server 10.7, 10.8, 10.9, and 10.10
+Installed, maintained and configured Linux, Ubuntu Servers.
+Maintained and administered Exchange 2003, 2007, 2010 and Office365 cloud accounts.
+Performed troubleshooting of LAN, WAN, DHCP, DNS and WINS network issues.
+Maintained and managed SQL Servers 2005, 2008, 2010 and 2012. Supported and managed SAN, NAS and other network storage servers.
+Performed Disaster Recovery for servers and workstations with Backup Exec Server 2012.
+Installed System Center Server and configured the application for testing (SCCM 2010/2012).
+Installed Terminal Servers, Certificate Server, Licensing Server and remote application gateway. Configured/replaced Cisco, Belkin, Netgear, Polycom phones, network equipment, routers/switches, etc. Created images for developers, sales teams, and accounting departments.
+Performed hardware installations, configurations, software updates, and system testing.
+Administered network security by the appropriate access to users and identifying possible security threats over VPN and Firewalls.
+Ensured data integrity by performing and verifying regular backups of files and databases.
+Performed VOIP administration from admin portal when necessary.
+Monitored, updated licenses for Symantec Endpoint Protection corporate solutions,
+Used remote tools to troubleshoot remote laptops, workstations and servers (RDP, ARD, VNC, TeamViewer, Bomgar, Logmein, and Join.me)
+Maintained and updated web server with IIS and Tomcat.
+Performed Scripting with Python, PowerShell, and Terminal for automation.
+Supported internal staff and customers in a timely and professional manner.
+Created and maintained up to date documentation.
+Recommended the purchase of network related hardware and software to meet companies’ needs. Developed policy and procedures for administration of the IS Department of multiple companies. Provided 24X7 on call support.
+Nexpose Support. Vulnerability scanning and analysis is the process that detects and assesses the vulnerabilities that exist within a network infrastructure.
+
 Texas Department of Criminal Justice​ - Dallas, TX - Full Time
 Regional Operations Manager - Region 2 - May 2019 - Mar 2020 - **Texas State Security Clearance**
 Information Technology Department
@@ -137,45 +176,6 @@ NOC Administrator/Systems Administrator/MDM Administrator/IS Operations - July 2
 Automated the creation and modification of Active Directory user accounts utilizing SAP LDAP Interface programs and Active Directory which directly effected the hiring, re-hiring, and termination of all Fossil employees.
 Worked as the Sr. Active Directory Consultant and learned the environment, processes, and solution sets involved very quickly.
 Responsible to perform and manage other resources in order to facilitate mass updates in the AD environment, write scripts for disabling, enabling, assigning passwords, and other more sophisticated procedures. Advised the Fossil team of many approaches in order to ensure appropriate systems access controls were in place in order to safeguard the systems environment. Committed to the team, ensuring success in the Project Hyper-Care Task.
-Nexpose Support. Vulnerability scanning and analysis is the process that detects and assesses the vulnerabilities that exist within a network infrastructure.
-
-Cyber Vines​ - Cedar Hill, TX - Full Time
-CEO / CIO - April 2011 - Aug 2016, Aug 2017 - Present
-Successfully managed company merger from DCE, Inc. to Cyber Vines, LLC. and maintained clients’ contracts throughout transition.
-Implemented, configured, and installed CA’s Nimsoft, a SNMP Management Interface on VMWare servers throughout the United States and in Mexico City, in a high-end, highly secured corporate data facility.
-Lead, planned, and deployed the renovation of the University of Texas Arlington’s (UTA) UCOMM and Video departments, including upgrades to Mac Video Stations, Server Stations, and Work Stations. Designed UTA’s movie studio-fiber channel RAID backup and storage system for the entire video department.
-Setup a dual monitor 4k-display system for UTA, utilizing new iMac Pro Servers with all Fiber connected systems to a 32TB RAID system.
-Implemented a SANLink and 10G Fabric Switch to two Promise RAID Systems for UTA’s ongoing storage.
-Created a full disaster recovery 32 TB Fiber RAID system.
-Cooperated with and worked hand in hand with UTA’s Office of Information Security (OIT) office in order to encourage cooperation between departments.
-Fully implemented an iPad and Windows MDM solution for West ISD in West, TX.
-Setup and implemented a mobile ticketing system for the city of Austin Transit Authority, CAP Metro, including setup of 75 city buses.
-Experienced in working with third party vendors, worked with CDW on various tech consulting jobs including VMWare setups and server deployments.
-Maintained preventative maintenance, upgrades, and network services as the sole IT Consultant for various businesses in the DFW area, including a law firm, Dr’s office, CPA, SEO company, design firm, wedding planners, construction company, strategic city planning company, wind turbine company, and many more.
-Regularly provided remote support for various clients throughout the United States, London, Brazil, and Peru.
-Built, migrated and maintained EC2 cloud platforms and servers.
-Installed, configured, and maintained VMWare and Hyper-V Servers for virtualization.
-Virtualized physical servers and workstations for QA and Tech Support team.
-Supported and maintained Active Directory, Group Policy, Clustering, Kerberos, and encryption. Administered Windows Server 2003, 2008 and 2012.
-Administered Mac Server 10.7, 10.8, 10.9, and 10.10
-Installed, maintained and configured Linux, Ubuntu Servers.
-Maintained and administered Exchange 2003, 2007, 2010 and Office365 cloud accounts.
-Performed troubleshooting of LAN, WAN, DHCP, DNS and WINS network issues.
-Maintained and managed SQL Servers 2005, 2008, 2010 and 2012. Supported and managed SAN, NAS and other network storage servers.
-Performed Disaster Recovery for servers and workstations with Backup Exec Server 2012.
-Installed System Center Server and configured the application for testing (SCCM 2010/2012).
-Installed Terminal Servers, Certificate Server, Licensing Server and remote application gateway. Configured/replaced Cisco, Belkin, Netgear, Polycom phones, network equipment, routers/switches, etc. Created images for developers, sales teams, and accounting departments.
-Performed hardware installations, configurations, software updates, and system testing.
-Administered network security by the appropriate access to users and identifying possible security threats over VPN and Firewalls.
-Ensured data integrity by performing and verifying regular backups of files and databases.
-Performed VOIP administration from admin portal when necessary.
-Monitored, updated licenses for Symantec Endpoint Protection corporate solutions,
-Used remote tools to troubleshoot remote laptops, workstations and servers (RDP, ARD, VNC, TeamViewer, Bomgar, Logmein, and Join.me)
-Maintained and updated web server with IIS and Tomcat.
-Performed Scripting with Python, PowerShell, and Terminal for automation.
-Supported internal staff and customers in a timely and professional manner.
-Created and maintained up to date documentation.
-Recommended the purchase of network related hardware and software to meet companies’ needs. Developed policy and procedures for administration of the IS Department of multiple companies. Provided 24X7 on call support.
 Nexpose Support. Vulnerability scanning and analysis is the process that detects and assesses the vulnerabilities that exist within a network infrastructure.
 
 Digital Criterion Enterprises​ - Dallas, TX - Full Time
