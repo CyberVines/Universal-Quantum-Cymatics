@@ -615,6 +615,167 @@ def gen_thor(text, n_tones=64, baud=100.0):
     buf.flush()
 
 # ══════════════════════════════════════════════════════════════════════════════
+# MUSICAL CIPHER — Category 10
+# Letter cipher: A=1, B=2, C=3 … Z=26, 0=space
+# Each letter maps to a chromatic semitone starting at C4 (Middle C).
+# Tuning: A4 = 432 Hz (Verdi / scientific tuning)
+# Octave 4: A→C4, B→C#4, C→D4, D→D#4, E→E4, F→F4, G→F#4, H→G4,
+#           I→G#4, J→A4(432), K→A#4, L→B4
+# Octave 5: M→C5, N→C#5, O→D5, P→D#5, Q→E5, R→F5, S→F#5, T→G5,
+#           U→G#5, V→A5(864), W→A#5, X→B5
+# Octave 6: Y→C6, Z→C#6
+# Space (0) = silence
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Reference tuning: A4 = 432 Hz
+MUSICAL_CIPHER_A4 = 432.0
+
+# Note names for each cipher value 1-26  (A4 = 432 Hz)
+MUSICAL_CIPHER_NOTES = {
+    1:  ('C4',  256.87),   # A
+    2:  ('C#4', 272.14),   # B
+    3:  ('D4',  288.33),   # C
+    4:  ('D#4', 305.47),   # D
+    5:  ('E4',  323.63),   # E
+    6:  ('F4',  342.88),   # F
+    7:  ('F#4', 363.27),   # G
+    8:  ('G4',  384.87),   # H
+    9:  ('G#4', 407.75),   # I
+    10: ('A4',  432.00),   # J  ← reference pitch
+    11: ('A#4', 457.69),   # K
+    12: ('B4',  484.90),   # L
+    13: ('C5',  513.74),   # M
+    14: ('C#5', 544.29),   # N
+    15: ('D5',  576.65),   # O
+    16: ('D#5', 610.94),   # P
+    17: ('E5',  647.27),   # Q
+    18: ('F5',  685.76),   # R
+    19: ('F#5', 726.53),   # S
+    20: ('G5',  769.74),   # T
+    21: ('G#5', 815.51),   # U
+    22: ('A5',  864.00),   # V
+    23: ('A#5', 915.38),   # W
+    24: ('B5',  969.81),   # X
+    25: ('C6',  1027.47),  # Y
+    26: ('C#6', 1088.57),  # Z
+    0:  ('REST', 0.0),     # Space (silence)
+}
+
+# Reverse lookup: frequency → (cipher_value, letter)
+MUSICAL_CIPHER_FREQ_TO_LETTER = {
+    v[1]: (k, chr(64 + k) if k > 0 else ' ')
+    for k, v in MUSICAL_CIPHER_NOTES.items()
+}
+
+# Letter → (cipher_value, note_name, frequency_hz)
+MUSICAL_CIPHER_ENCODE = {}
+for _i in range(26):
+    _letter = chr(65 + _i)
+    _val = _i + 1
+    _note, _freq = MUSICAL_CIPHER_NOTES[_val]
+    MUSICAL_CIPHER_ENCODE[_letter] = (_val, _note, _freq)
+MUSICAL_CIPHER_ENCODE[' '] = (0, 'REST', 0.0)
+
+
+def musical_cipher_encode_text(text):
+    """Convert text to a list of (cipher_value, note_name, freq_hz) tuples.
+    Returns the numeric cipher stream where 0 = word boundary (silence)."""
+    result = []
+    for ch in text.upper():
+        if ch == ' ':
+            result.append((0, 'REST', 0.0))
+        elif 'A' <= ch <= 'Z':
+            result.append(MUSICAL_CIPHER_ENCODE[ch])
+        # Non-alpha characters are silently skipped
+    return result
+
+
+def gen_musical_cipher(text, sym_rate=4.0):
+    """Musical Cipher transmitter.
+    Encodes text as a sequence of chromatic tones: A=C4, B=C#4 … Z=C#6.
+    Spaces become silence gaps.  Each symbol lasts 1/sym_rate seconds.
+    Default 4 symbols/sec (250 ms per note) for clear audibility.
+    Transmitted as AM (tone on carrier) for clean tone reproduction.
+    """
+    symbols = musical_cipher_encode_text(text)
+    sps = int(SR / sym_rate)  # samples per symbol
+    buf = StreamBuffer()
+    amplitude = 63  # Carrier + modulation amplitude
+
+    for cipher_val, note_name, freq_hz in symbols:
+        if freq_hz == 0.0:
+            # Silence for space/word boundary
+            buf.add(np.zeros(sps, dtype=np.float64),
+                    np.zeros(sps, dtype=np.float64))
+        else:
+            # Generate pure tone as AM on carrier
+            t = np.arange(sps) / SR
+            tone = amplitude * np.cos(2 * np.pi * freq_hz * t)
+            carrier_i = amplitude + tone  # AM: DC offset + modulating tone
+            carrier_q = np.zeros(sps, dtype=np.float64)
+            buf.add(carrier_i, carrier_q)
+    buf.flush()
+
+
+def decode_musical_cipher(audio, rate):
+    """Decode a Musical Cipher transmission back to text.
+    Uses FFT per symbol window to identify the closest chromatic tone.
+    """
+    sym_rate = 4.0  # Must match transmitter default
+    sps = int(rate / sym_rate)
+    n_syms = len(audio) // sps
+    if n_syms < 1:
+        return "[MUSIC_CIPHER: signal too short]"
+
+    # Build sorted list of target frequencies for matching
+    target_freqs = []
+    for val in range(1, 27):
+        target_freqs.append((MUSICAL_CIPHER_NOTES[val][1], val))
+
+    result_chars = []
+    for i in range(n_syms):
+        start = i * sps
+        end = start + sps
+        segment = audio[start:end]
+
+        # Check for silence (space)
+        rms = np.sqrt(np.mean(segment ** 2))
+        if rms < 0.5:
+            # Only add space if previous char wasn't already a space
+            if not result_chars or result_chars[-1] != ' ':
+                result_chars.append(' ')
+            continue
+
+        # FFT to find dominant frequency
+        fft_n = max(sps, 1024)
+        spec = np.abs(np.fft.rfft(segment, n=fft_n))
+        fft_freqs = np.fft.rfftfreq(fft_n, 1.0 / rate)
+
+        # Ignore DC and very low frequencies
+        spec[:max(1, int(200 * fft_n / rate))] = 0
+        peak_bin = np.argmax(spec)
+        peak_freq = fft_freqs[peak_bin]
+
+        # Find closest musical cipher tone
+        best_val = 0
+        best_dist = float('inf')
+        for freq, val in target_freqs:
+            dist = abs(peak_freq - freq)
+            if dist < best_dist:
+                best_dist = dist
+                best_val = val
+
+        # Tolerance: within half a semitone (~3% of frequency)
+        expected_freq = MUSICAL_CIPHER_NOTES[best_val][1]
+        if expected_freq > 0 and best_dist / expected_freq < 0.03:
+            result_chars.append(chr(64 + best_val))
+        else:
+            result_chars.append('?')
+
+    return ''.join(result_chars).strip()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # WEAK SIGNAL MODES (correct modulation, simplified encoding)
 # ══════════════════════════════════════════════════════════════════════════════
 def gen_gfsk_tones(text, n_tones, baud, tone_spacing, bt=2.0):
@@ -1753,6 +1914,7 @@ def decode_dispatch(decode_type, audio, rate):
         'OLIVIA16': lambda a, r: decode_olivia(a, r, 16, 500),
         'OLIVIA32': lambda a, r: decode_olivia(a, r, 32, 1000),
         'FT8': decode_ft8,
+        'MUSIC_CIPHER': decode_musical_cipher,
     }
     if decode_type in decode_map:
         return decode_map[decode_type](audio, rate)
@@ -2819,6 +2981,7 @@ CAT_GEMATRIA = 'GEMATRIA'     # Hebrew, English, Simple, Abjad, Greek, Katapayad
 CAT_MATH = 'MATH'             # Pi, Phi, Fibonacci, primes, entropy, sacred geometry
 CAT_WORD = 'WORD'             # word/sentence detection
 CAT_PATTERN = 'PATTERN'       # repeating patterns, palindromes, structural
+CAT_MUSIC = 'MUSIC'           # musical cipher: A=1→C4, B=2→C#4 … Z=26→C#6, 0=space/silence
 
 
 def _ensure_log_dir():
@@ -3266,148 +3429,167 @@ def log_clear(archive=True):
 # DISPATCH
 # ══════════════════════════════════════════════════════════════════════════════
 if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print("Usage: transmit_modes.py MODE [args...]", file=sys.stderr)
+        sys.exit(1)
+
     mode = sys.argv[1]
 
-    # Handle demod modes separately (different arg format: MODE IQ_PATH WAV_PATH)
-    if mode.startswith('DEMOD_'):
-        iq_path = sys.argv[2] if len(sys.argv) > 2 else ''
-        wav_path = sys.argv[3] if len(sys.argv) > 3 else '/tmp/demod.wav'
-        demod_type = mode.replace('DEMOD_', '')
-        demod_to_wav(iq_path, wav_path, demod_type)
-        sys.exit(0)
+    try:
+        # Handle demod modes separately (different arg format: MODE IQ_PATH WAV_PATH)
+        if mode.startswith('DEMOD_'):
+            iq_path = sys.argv[2] if len(sys.argv) > 2 else ''
+            wav_path = sys.argv[3] if len(sys.argv) > 3 else '/tmp/demod.wav'
+            if iq_path and not os.path.isfile(iq_path):
+                print(f"IQ file not found: {iq_path}", file=sys.stderr)
+                sys.exit(1)
+            demod_type = mode.replace('DEMOD_', '')
+            demod_to_wav(iq_path, wav_path, demod_type)
+            sys.exit(0)
 
-    # Handle jitter frequency analysis (arg format: JITTER_ANALYZE WAV_PATH [FREQ] [DEMOD] [DUR] [SESSION_ID])
-    if mode == 'JITTER_ANALYZE':
-        wav_path = sys.argv[2] if len(sys.argv) > 2 else ''
-        freq_mhz = float(sys.argv[3]) if len(sys.argv) > 3 else None
-        demod = sys.argv[4] if len(sys.argv) > 4 else None
-        dur = float(sys.argv[5]) if len(sys.argv) > 5 else None
-        sid = sys.argv[6] if len(sys.argv) > 6 else None
-        audio, audio_rate = load_wav(wav_path)
-        result = jitter_analyze(audio, audio_rate)
-        print(result)
-        # Extract bitstring for logging
-        binary, _, _, _ = _extract_peaks_valleys(audio, audio_rate)
-        bitstring = ''.join(str(b) for b in binary)
-        n_logged = log_jitter_results(result, frequency_mhz=freq_mhz,
-                                       demod_mode=demod, duration_sec=dur,
-                                       session_id=sid, bitstring=bitstring)
-        print(f"\n  [{n_logged} events logged to repository]", file=sys.stderr)
-        sys.exit(0)
-
-    # Handle log repository commands (LOGSTORE_*)
-    if mode.startswith('LOGSTORE_'):
-        subcmd = mode.replace('LOGSTORE_', '')
-        if subcmd == 'QUERY':
-            cat = sys.argv[2] if len(sys.argv) > 2 and sys.argv[2] != '_' else None
-            sev = sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] != '_' else None
-            search = sys.argv[4] if len(sys.argv) > 4 and sys.argv[4] != '_' else None
-            limit = int(sys.argv[5]) if len(sys.argv) > 5 else 50
-            result = log_query(category=cat, severity=sev, search=search, limit=limit)
-            print('\n'.join(result))
-        elif subcmd == 'STATS':
-            result = log_stats()
-            print('\n'.join(result))
-        elif subcmd == 'EXPORT':
-            fmt = sys.argv[2] if len(sys.argv) > 2 else 'text'
-            output_path = sys.argv[3] if len(sys.argv) > 3 else ''
-            result = log_export(format=fmt)
-            if output_path:
-                with open(output_path, 'w') as f:
-                    f.write(result)
-                print(f"Exported to {output_path}")
-            else:
-                print(result)
-        elif subcmd == 'CLEAR':
-            archive = sys.argv[2] != 'no_archive' if len(sys.argv) > 2 else True
-            result = log_clear(archive=archive)
+        # Handle jitter frequency analysis (arg format: JITTER_ANALYZE WAV_PATH [FREQ] [DEMOD] [DUR] [SESSION_ID])
+        if mode == 'JITTER_ANALYZE':
+            wav_path = sys.argv[2] if len(sys.argv) > 2 else ''
+            if wav_path and not os.path.isfile(wav_path):
+                print(f"WAV file not found: {wav_path}", file=sys.stderr)
+                sys.exit(1)
+            freq_mhz = float(sys.argv[3]) if len(sys.argv) > 3 else None
+            demod = sys.argv[4] if len(sys.argv) > 4 else None
+            dur = float(sys.argv[5]) if len(sys.argv) > 5 else None
+            sid = sys.argv[6] if len(sys.argv) > 6 else None
+            audio, audio_rate = load_wav(wav_path)
+            result = jitter_analyze(audio, audio_rate)
             print(result)
-        elif subcmd == 'SESSION_START':
-            freq = float(sys.argv[2]) if len(sys.argv) > 2 else None
-            demod = sys.argv[3] if len(sys.argv) > 3 else None
-            label = sys.argv[4] if len(sys.argv) > 4 else None
-            sid = log_session_start(freq, demod, label)
-            print(sid)
-        elif subcmd == 'LOG_EVENT':
-            # LOGSTORE_LOG_EVENT cat subcat sev summary [detail] [freq] [session_id]
-            cat = sys.argv[2] if len(sys.argv) > 2 else CAT_SYSTEM
-            subcat = sys.argv[3] if len(sys.argv) > 3 else ''
-            sev = sys.argv[4] if len(sys.argv) > 4 else SEV_INFO
-            summary = sys.argv[5] if len(sys.argv) > 5 else ''
-            detail = sys.argv[6] if len(sys.argv) > 6 else ''
-            freq = float(sys.argv[7]) if len(sys.argv) > 7 and sys.argv[7] != '_' else None
-            sid = sys.argv[8] if len(sys.argv) > 8 else None
-            eid = log_event(cat, subcat, sev, summary, detail=detail,
-                            frequency_mhz=freq, session_id=sid)
-            print(eid)
+            # Extract bitstring for logging
+            binary, _, _, _ = _extract_peaks_valleys(audio, audio_rate)
+            bitstring = ''.join(str(b) for b in binary)
+            n_logged = log_jitter_results(result, frequency_mhz=freq_mhz,
+                                           demod_mode=demod, duration_sec=dur,
+                                           session_id=sid, bitstring=bitstring)
+            print(f"\n  [{n_logged} events logged to repository]", file=sys.stderr)
+            sys.exit(0)
+
+        # Handle log repository commands (LOGSTORE_*)
+        if mode.startswith('LOGSTORE_'):
+            subcmd = mode.replace('LOGSTORE_', '')
+            if subcmd == 'QUERY':
+                cat = sys.argv[2] if len(sys.argv) > 2 and sys.argv[2] != '_' else None
+                sev = sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] != '_' else None
+                search = sys.argv[4] if len(sys.argv) > 4 and sys.argv[4] != '_' else None
+                limit = int(sys.argv[5]) if len(sys.argv) > 5 else 50
+                result = log_query(category=cat, severity=sev, search=search, limit=limit)
+                print('\n'.join(result))
+            elif subcmd == 'STATS':
+                result = log_stats()
+                print('\n'.join(result))
+            elif subcmd == 'EXPORT':
+                fmt = sys.argv[2] if len(sys.argv) > 2 else 'text'
+                output_path = sys.argv[3] if len(sys.argv) > 3 else ''
+                result = log_export(format=fmt)
+                if output_path:
+                    with open(output_path, 'w') as f:
+                        f.write(result)
+                    print(f"Exported to {output_path}")
+                else:
+                    print(result)
+            elif subcmd == 'CLEAR':
+                archive = sys.argv[2] != 'no_archive' if len(sys.argv) > 2 else True
+                result = log_clear(archive=archive)
+                print(result)
+            elif subcmd == 'SESSION_START':
+                freq = float(sys.argv[2]) if len(sys.argv) > 2 else None
+                demod = sys.argv[3] if len(sys.argv) > 3 else None
+                label = sys.argv[4] if len(sys.argv) > 4 else None
+                sid = log_session_start(freq, demod, label)
+                print(sid)
+            elif subcmd == 'LOG_EVENT':
+                # LOGSTORE_LOG_EVENT cat subcat sev summary [detail] [freq] [session_id]
+                cat = sys.argv[2] if len(sys.argv) > 2 else CAT_SYSTEM
+                subcat = sys.argv[3] if len(sys.argv) > 3 else ''
+                sev = sys.argv[4] if len(sys.argv) > 4 else SEV_INFO
+                summary = sys.argv[5] if len(sys.argv) > 5 else ''
+                detail = sys.argv[6] if len(sys.argv) > 6 else ''
+                freq = float(sys.argv[7]) if len(sys.argv) > 7 and sys.argv[7] != '_' else None
+                sid = sys.argv[8] if len(sys.argv) > 8 else None
+                eid = log_event(cat, subcat, sev, summary, detail=detail,
+                                frequency_mhz=freq, session_id=sid)
+                print(eid)
+            else:
+                print(f"Unknown LOGSTORE command: {subcmd}", file=sys.stderr)
+                sys.exit(1)
+            sys.exit(0)
+
+        # Handle decode modes (different arg format: MODE WAV_PATH)
+        if mode.startswith('DECODE_'):
+            wav_path = sys.argv[2] if len(sys.argv) > 2 else ''
+            if wav_path and not os.path.isfile(wav_path):
+                print(f"WAV file not found: {wav_path}", file=sys.stderr)
+                sys.exit(1)
+            audio, audio_rate = load_wav(wav_path)
+            decode_type = mode.replace('DECODE_', '')
+            if decode_type == 'AUTO':
+                detected = analyze_signal(audio, audio_rate)
+                print(f"[DETECTED: {detected}]", file=sys.stderr)
+                decode_type = detected
+            result = decode_dispatch(decode_type, audio, audio_rate)
+            print(result)
+            sys.exit(0)
+
+        msg  = sys.argv[2] if len(sys.argv) > 2 else ''
+        wpm  = int(sys.argv[3]) if len(sys.argv) > 3 else 15
+        tone = float(sys.argv[4]) if len(sys.argv) > 4 else 572
+        fdev = float(sys.argv[5]) if len(sys.argv) > 5 else 5000
+        call = sys.argv[6] if len(sys.argv) > 6 else 'N0CALL'
+
+        dispatch = {
+            'CW_AM':     lambda: gen_cw(msg, wpm, tone, fdev, 'AM'),
+            'CW_FM':     lambda: gen_cw(msg, wpm, tone, fdev, 'FM'),
+            'BPSK31':    lambda: gen_bpsk(msg, 31.25),
+            'BPSK63':    lambda: gen_bpsk(msg, 62.5),
+            'BPSK125':   lambda: gen_bpsk(msg, 125.0),
+            'QPSK31':    lambda: gen_qpsk(msg, 31.25),
+            'QPSK63':    lambda: gen_qpsk(msg, 62.5),
+            '8PSK125':   lambda: gen_8psk(msg, 125.0),
+            '8PSK250':   lambda: gen_8psk(msg, 250.0),
+            '8PSK500':   lambda: gen_8psk(msg, 500.0),
+            '8PSK1200F': lambda: gen_8psk(msg, 1200.0),
+            'RTTY45':    lambda: gen_rtty(msg, 45.45, 170.0),
+            'RTTY50':    lambda: gen_rtty(msg, 50.0, 170.0),
+            'FSK441':    lambda: gen_fsk441(msg),
+            'AFSK1200':  lambda: gen_afsk(msg, 1200, 2200, 1200),
+            'AFSK2400':  lambda: gen_afsk(msg, 1200, 2400, 2400),
+            'MFSK16':    lambda: gen_mfsk(msg, 16, 15.625),
+            'MFSK32':    lambda: gen_mfsk(msg, 32, 31.25),
+            'MFSK64':    lambda: gen_mfsk(msg, 64, 62.5),
+            'OLIVIA8':   lambda: gen_olivia(msg, 8, 500),
+            'OLIVIA16':  lambda: gen_olivia(msg, 16, 500),
+            'OLIVIA32':  lambda: gen_olivia(msg, 32, 1000),
+            'THOR100':   lambda: gen_thor(msg, 64, 100.0),
+            'FT8':       lambda: gen_ft8(msg),
+            'FT4':       lambda: gen_ft4(msg),
+            'WSPR':      lambda: gen_wspr(msg),
+            'JT65':      lambda: gen_jt65(msg),
+            'AM':        lambda: gen_am(msg, tone, wpm),
+            'NBFM':      lambda: gen_nbfm(msg, tone, fdev, wpm),
+            'WBFM':      lambda: gen_wbfm(msg, tone, wpm),
+            'USB':       lambda: gen_ssb(msg, 'USB', tone, wpm),
+            'LSB':       lambda: gen_ssb(msg, 'LSB', tone, wpm),
+            'AX25':      lambda: gen_ax25(msg, src=call),
+            'APRS':      lambda: gen_aprs(msg, src=call),
+            'WAV_NBFM':  lambda: gen_wav_fm(msg, 5000),
+            'WAV_WBFM':  lambda: gen_wav_fm(msg, 75000),
+            'WAV_AM':    lambda: gen_wav_am(msg),
+            'WAV_USB':   lambda: gen_wav_ssb(msg, 'USB'),
+            'WAV_LSB':   lambda: gen_wav_ssb(msg, 'LSB'),
+            'MUSIC_CIPHER': lambda: gen_musical_cipher(msg),
+        }
+
+        if mode in dispatch:
+            dispatch[mode]()
         else:
-            print(f"Unknown LOGSTORE command: {subcmd}", file=sys.stderr)
+            print(f"Unknown mode: {mode}", file=sys.stderr)
             sys.exit(1)
-        sys.exit(0)
 
-    # Handle decode modes (different arg format: MODE WAV_PATH)
-    if mode.startswith('DECODE_'):
-        wav_path = sys.argv[2] if len(sys.argv) > 2 else ''
-        audio, audio_rate = load_wav(wav_path)
-        decode_type = mode.replace('DECODE_', '')
-        if decode_type == 'AUTO':
-            detected = analyze_signal(audio, audio_rate)
-            print(f"[DETECTED: {detected}]", file=sys.stderr)
-            decode_type = detected
-        result = decode_dispatch(decode_type, audio, audio_rate)
-        print(result)
-        sys.exit(0)
-
-    msg  = sys.argv[2] if len(sys.argv) > 2 else ''
-    wpm  = int(sys.argv[3]) if len(sys.argv) > 3 else 15
-    tone = float(sys.argv[4]) if len(sys.argv) > 4 else 572
-    fdev = float(sys.argv[5]) if len(sys.argv) > 5 else 5000
-    call = sys.argv[6] if len(sys.argv) > 6 else 'N0CALL'
-
-    dispatch = {
-        'CW_AM':     lambda: gen_cw(msg, wpm, tone, fdev, 'AM'),
-        'CW_FM':     lambda: gen_cw(msg, wpm, tone, fdev, 'FM'),
-        'BPSK31':    lambda: gen_bpsk(msg, 31.25),
-        'BPSK63':    lambda: gen_bpsk(msg, 62.5),
-        'BPSK125':   lambda: gen_bpsk(msg, 125.0),
-        'QPSK31':    lambda: gen_qpsk(msg, 31.25),
-        'QPSK63':    lambda: gen_qpsk(msg, 62.5),
-        '8PSK125':   lambda: gen_8psk(msg, 125.0),
-        '8PSK250':   lambda: gen_8psk(msg, 250.0),
-        '8PSK500':   lambda: gen_8psk(msg, 500.0),
-        '8PSK1200F': lambda: gen_8psk(msg, 1200.0),
-        'RTTY45':    lambda: gen_rtty(msg, 45.45, 170.0),
-        'RTTY50':    lambda: gen_rtty(msg, 50.0, 170.0),
-        'FSK441':    lambda: gen_fsk441(msg),
-        'AFSK1200':  lambda: gen_afsk(msg, 1200, 2200, 1200),
-        'AFSK2400':  lambda: gen_afsk(msg, 1200, 2400, 2400),
-        'MFSK16':    lambda: gen_mfsk(msg, 16, 15.625),
-        'MFSK32':    lambda: gen_mfsk(msg, 32, 31.25),
-        'MFSK64':    lambda: gen_mfsk(msg, 64, 62.5),
-        'OLIVIA8':   lambda: gen_olivia(msg, 8, 500),
-        'OLIVIA16':  lambda: gen_olivia(msg, 16, 500),
-        'OLIVIA32':  lambda: gen_olivia(msg, 32, 1000),
-        'THOR100':   lambda: gen_thor(msg, 64, 100.0),
-        'FT8':       lambda: gen_ft8(msg),
-        'FT4':       lambda: gen_ft4(msg),
-        'WSPR':      lambda: gen_wspr(msg),
-        'JT65':      lambda: gen_jt65(msg),
-        'AM':        lambda: gen_am(msg, tone, wpm),
-        'NBFM':      lambda: gen_nbfm(msg, tone, fdev, wpm),
-        'WBFM':      lambda: gen_wbfm(msg, tone, wpm),
-        'USB':       lambda: gen_ssb(msg, 'USB', tone, wpm),
-        'LSB':       lambda: gen_ssb(msg, 'LSB', tone, wpm),
-        'AX25':      lambda: gen_ax25(msg, src=call),
-        'APRS':      lambda: gen_aprs(msg, src=call),
-        'WAV_NBFM':  lambda: gen_wav_fm(msg, 5000),
-        'WAV_WBFM':  lambda: gen_wav_fm(msg, 75000),
-        'WAV_AM':    lambda: gen_wav_am(msg),
-        'WAV_USB':   lambda: gen_wav_ssb(msg, 'USB'),
-        'WAV_LSB':   lambda: gen_wav_ssb(msg, 'LSB'),
-    }
-
-    if mode in dispatch:
-        dispatch[mode]()
-    else:
-        print(f"Unknown mode: {mode}", file=sys.stderr)
+    except Exception as e:
+        print(f"Error in {mode}: {e}", file=sys.stderr)
         sys.exit(1)

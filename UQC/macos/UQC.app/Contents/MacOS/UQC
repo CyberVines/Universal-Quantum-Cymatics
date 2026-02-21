@@ -1,0 +1,132 @@
+#!/bin/bash
+# ──────────────────────────────────────────────────────────────────────────────
+# UQC — Universal Quantum Codec  |  macOS Intel Launcher
+# Copyright 2026 Cyber Vines, LLC (cybervines.com)
+# ──────────────────────────────────────────────────────────────────────────────
+set -euo pipefail
+
+# ── Paths ────────────────────────────────────────────────────────────────────
+CONTENTS_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+RESOURCES_DIR="$CONTENTS_DIR/Resources"
+UQC_ROOT="$RESOURCES_DIR/app"
+WEB_DIR="$UQC_ROOT/web"
+SERVER_PY="$WEB_DIR/server.py"
+INSTALL_SCRIPT="$RESOURCES_DIR/install_deps.sh"
+MARKER="$HOME/.uqc_installed"
+PORT=8080
+SERVER_PID=""
+
+# ── Resolve symlink to actual UQC root ───────────────────────────────────────
+if [ -L "$UQC_ROOT" ]; then
+    UQC_ROOT="$(cd "$UQC_ROOT" && pwd)"
+    WEB_DIR="$UQC_ROOT/web"
+    SERVER_PY="$WEB_DIR/server.py"
+fi
+
+# ── Cleanup on exit ─────────────────────────────────────────────────────────
+cleanup() {
+    if [ -n "$SERVER_PID" ] && kill -0 "$SERVER_PID" 2>/dev/null; then
+        echo ""
+        echo "[UQC] Stopping server (PID $SERVER_PID)..."
+        kill "$SERVER_PID" 2>/dev/null
+        wait "$SERVER_PID" 2>/dev/null || true
+    fi
+    echo "[UQC] Shutdown complete."
+}
+trap cleanup EXIT INT TERM
+
+# ── Helper: show macOS dialog ────────────────────────────────────────────────
+notify() {
+    osascript -e "display notification \"$1\" with title \"UQC\""
+}
+
+alert() {
+    osascript -e "display dialog \"$1\" with title \"UQC\" buttons {\"OK\"} default button \"OK\""
+}
+
+confirm() {
+    osascript -e "display dialog \"$1\" with title \"UQC\" buttons {\"Cancel\", \"Install\"} default button \"Install\"" 2>/dev/null
+    return $?
+}
+
+# ── Step 1: Check Xcode Command Line Tools ──────────────────────────────────
+if ! xcode-select -p &>/dev/null; then
+    confirm "UQC requires Xcode Command Line Tools. Install now?" || exit 1
+    xcode-select --install
+    echo "[UQC] Waiting for Xcode CLI tools installation..."
+    until xcode-select -p &>/dev/null; do
+        sleep 5
+    done
+    echo "[UQC] Xcode CLI tools installed."
+fi
+
+# ── Step 2: First-launch dependency installation ────────────────────────────
+if [ ! -f "$MARKER" ]; then
+    confirm "First launch: UQC needs to install dependencies (Homebrew, HackRF, Python packages, AI models). This may take 10-20 minutes. Proceed?" || exit 1
+    echo "[UQC] Running first-time setup..."
+    notify "Installing dependencies — this may take a while..."
+
+    # Open Terminal with the install script so the user can see progress
+    osascript <<EOF
+tell application "Terminal"
+    activate
+    do script "bash '$INSTALL_SCRIPT' && touch '$MARKER' && echo '' && echo '========================================' && echo '  UQC setup complete! You can close this' && echo '  window and relaunch UQC.app.' && echo '========================================'"
+end tell
+EOF
+    alert "Dependency installation is running in Terminal. Once it finishes, relaunch UQC.app."
+    exit 0
+fi
+
+# ── Step 3: Verify critical files ────────────────────────────────────────────
+if [ ! -f "$SERVER_PY" ]; then
+    alert "Error: server.py not found at:\n$SERVER_PY\n\nMake sure UQC.app is inside the UQC/macos/ directory."
+    exit 1
+fi
+
+if [ ! -f "$UQC_ROOT/transmit_modes.py" ]; then
+    alert "Error: transmit_modes.py not found at:\n$UQC_ROOT/transmit_modes.py\n\nMake sure UQC.app is inside the UQC/macos/ directory."
+    exit 1
+fi
+
+# ── Step 4: Ensure hackrf_logs directory exists ──────────────────────────────
+mkdir -p "$UQC_ROOT/hackrf_logs"
+
+# ── Step 5: Start the FastAPI server ─────────────────────────────────────────
+echo "──────────────────────────────────────────"
+echo "  UQC — Universal Quantum Codec"
+echo "  Cyber Vines, LLC  |  cybervines.com"
+echo "──────────────────────────────────────────"
+echo ""
+echo "[UQC] Starting server on port $PORT..."
+
+cd "$WEB_DIR"
+python3 server.py &
+SERVER_PID=$!
+
+# ── Step 6: Wait for server to be ready, then open browser ───────────────────
+echo "[UQC] Waiting for server (PID $SERVER_PID)..."
+MAX_WAIT=30
+WAITED=0
+while ! curl -s "http://localhost:$PORT" >/dev/null 2>&1; do
+    if ! kill -0 "$SERVER_PID" 2>/dev/null; then
+        echo "[UQC] ERROR: Server process exited unexpectedly."
+        alert "Server failed to start. Check Terminal for errors."
+        exit 1
+    fi
+    if [ "$WAITED" -ge "$MAX_WAIT" ]; then
+        echo "[UQC] ERROR: Server did not respond within ${MAX_WAIT}s."
+        alert "Server did not start within ${MAX_WAIT} seconds."
+        exit 1
+    fi
+    sleep 1
+    WAITED=$((WAITED + 1))
+done
+
+echo "[UQC] Server is ready. Opening browser..."
+open "http://localhost:$PORT"
+notify "UQC is running at http://localhost:$PORT"
+
+# ── Step 7: Keep running until server exits or user quits ────────────────────
+echo "[UQC] Press Ctrl+C to stop the server."
+echo ""
+wait "$SERVER_PID"

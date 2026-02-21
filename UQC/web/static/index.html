@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UQC // CYBERVINES.COM Multi-Mode Transmitter</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>CYBERVINES.COM</h1>
+                <div class="subtitle">Multi-Mode TX/RX</div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <div class="nav-item active" data-view="transmit">
+                    <span class="icon">&#x2637;</span>
+                    <span class="label">Transmit</span>
+                </div>
+                <div class="nav-item" data-view="rawfile">
+                    <span class="icon">&#x25A3;</span>
+                    <span class="label">RAW File</span>
+                </div>
+                <div class="nav-item" data-view="record">
+                    <span class="icon">&#x25CF;</span>
+                    <span class="label">Record</span>
+                </div>
+                <div class="nav-item" data-view="tts">
+                    <span class="icon">&#x266B;</span>
+                    <span class="label">TTS</span>
+                </div>
+                <div class="nav-item" data-view="ai">
+                    <span class="icon">&#x2609;</span>
+                    <span class="label">AI Responder</span>
+                </div>
+                <div class="nav-item" data-view="analyzer">
+                    <span class="icon">&#x223F;</span>
+                    <span class="label">Analyzer</span>
+                </div>
+                <div class="nav-item" data-view="jitter">
+                    <span class="icon">&#x2261;</span>
+                    <span class="label">Jitter</span>
+                </div>
+                <div class="nav-item" data-view="logs">
+                    <span class="icon">&#x2630;</span>
+                    <span class="label">Logs</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="logo">UQC</div>
+            <div class="status-indicators">
+                <div class="status-item">
+                    <span class="status-dot offline" id="hackrf-dot"></span>
+                    <span>HackRF:</span>
+                    <span class="value" id="hackrf-status">Checking...</span>
+                </div>
+                <div class="status-item">
+                    <span>Freq:</span>
+                    <span class="value" id="active-freq">--</span>
+                </div>
+                <div class="status-item">
+                    <span>Mode:</span>
+                    <span class="value" id="active-mode">--</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main" id="main">
+            <!-- Transmit View -->
+            <div class="view active" id="view-transmit"></div>
+            <!-- RAW File View -->
+            <div class="view" id="view-rawfile"></div>
+            <!-- Record View -->
+            <div class="view" id="view-record"></div>
+            <!-- TTS View -->
+            <div class="view" id="view-tts"></div>
+            <!-- AI Responder View -->
+            <div class="view" id="view-ai"></div>
+            <!-- Analyzer View -->
+            <div class="view" id="view-analyzer"></div>
+            <!-- Jitter View -->
+            <div class="view" id="view-jitter"></div>
+            <!-- Logs View -->
+            <div class="view" id="view-logs"></div>
+        </main>
+
+        <!-- Console Panel -->
+        <div class="console-panel collapsed" id="console-panel">
+            <div class="console-header" id="console-toggle">
+                <span class="title">Console</span>
+                <span class="toggle" id="console-toggle-icon">&#9650;</span>
+            </div>
+            <div class="console-output" id="console-output"></div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Modal Backdrop -->
+    <div class="modal-backdrop" id="modal-backdrop">
+        <div class="modal" id="modal-content"></div>
+    </div>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>

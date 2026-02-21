@@ -596,7 +596,16 @@ set_permissions() {
     chmod +x "$UQC_DIR/morse_transmit.sh"
     chmod +x "$UQC_DIR/transmit_modes.py"
     chmod +x "$UQC_DIR/install.sh"
+    [[ -f "$UQC_DIR/web/server.py" ]] && chmod +x "$UQC_DIR/web/server.py"
     log "Scripts marked executable."
+
+    # Create log directory with proper permissions
+    mkdir -p "$UQC_DIR/hackrf_logs"
+    chmod 755 "$UQC_DIR/hackrf_logs" 2>/dev/null || true
+    log "Log directory ensured: $UQC_DIR/hackrf_logs/"
+
+    # Ensure web static directories exist
+    mkdir -p "$UQC_DIR/web/static/js" "$UQC_DIR/web/static/css" 2>/dev/null || true
 
     # udev rules for HackRF (so it works without root)
     UDEV_RULE="/etc/udev/rules.d/52-hackrf.rules"
@@ -639,6 +648,51 @@ update_paths() {
     fi
     if [[ -d "$LLAMA_DIR" ]]; then
         log "llama.cpp: $LLAMA_DIR"
+    fi
+}
+
+# ── Web Frontend (FastAPI) ────────────────────────────────────────────────────
+setup_web_frontend() {
+    header "Setting Up Web Frontend"
+
+    WEB_DIR="$UQC_DIR/web"
+    REQUIREMENTS="$WEB_DIR/requirements.txt"
+
+    if [[ ! -f "$REQUIREMENTS" ]]; then
+        log "Creating web requirements.txt..."
+        cat > "$REQUIREMENTS" << 'REQEOF'
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+websockets>=12.0
+python-multipart>=0.0.6
+REQEOF
+    fi
+
+    log "Installing Python dependencies for web frontend..."
+    if python3 -m pip --version &>/dev/null; then
+        python3 -m pip install --user --break-system-packages -r "$REQUIREMENTS" 2>/dev/null \
+            || python3 -m pip install --user -r "$REQUIREMENTS" 2>/dev/null \
+            || $SUDO python3 -m pip install -r "$REQUIREMENTS" 2>/dev/null \
+            || { warn "Failed to install web frontend dependencies."; warn "Install manually: pip3 install -r $REQUIREMENTS"; return 0; }
+        log "Web frontend dependencies installed."
+    else
+        warn "pip not available. Install manually: pip3 install -r $REQUIREMENTS"
+        return 0
+    fi
+
+    # Verify key files exist
+    local missing=0
+    for f in server.py static/index.html static/css/style.css static/js/app.js; do
+        if [[ ! -f "$WEB_DIR/$f" ]]; then
+            warn "Missing: $WEB_DIR/$f"
+            missing=$((missing + 1))
+        fi
+    done
+
+    if [[ $missing -eq 0 ]]; then
+        log "Web frontend files verified."
+    else
+        warn "$missing web frontend file(s) missing."
     fi
 }
 
@@ -696,6 +750,13 @@ verify_installation() {
     check_warn "espeak-ng"         "command -v espeak-ng"
 
     echo ""
+    info "Web frontend:"
+    check_warn "fastapi"           "python3 -c 'import fastapi'"
+    check_warn "uvicorn"           "python3 -c 'import uvicorn'"
+    check_warn "web/server.py"     "test -f '$UQC_DIR/web/server.py'"
+    check_warn "web/index.html"    "test -f '$UQC_DIR/web/static/index.html'"
+
+    echo ""
     info "AI voice responder (option 5):"
     check_warn "whisper.cpp"       "test -x '$WHISPER_DIR/main'"
     check_warn "Whisper model"     "test -f '$WHISPER_MODEL_DIR/ggml-${WHISPER_MODEL}.bin'"
@@ -730,11 +791,16 @@ print_summary() {
     echo ""
     echo "  Location: $UQC_DIR"
     echo ""
-    echo "  To run:"
+    echo "  CLI mode:"
     echo "    cd $UQC_DIR"
     echo "    ./morse_transmit.sh"
     echo ""
-    echo "  Options available:"
+    echo "  Web UI mode:"
+    echo "    cd $UQC_DIR/web"
+    echo "    python3 server.py"
+    echo "    Then open: http://localhost:8080"
+    echo ""
+    echo "  Features (CLI & Web):"
     echo "    1) Compose & transmit message (30+ modulation modes)"
     echo "    2) Transmit raw IQ capture file"
     echo "    3) Record from HackRF and retransmit"
@@ -753,6 +819,26 @@ print_summary() {
 # MAIN
 # ══════════════════════════════════════════════════════════════════════════════
 
+# ── CLI flag support (for non-interactive / automated installs) ──────────────
+INSTALL_CHOICE=""
+for arg in "$@"; do
+    case "$arg" in
+        --full)    INSTALL_CHOICE=1 ;;
+        --core)    INSTALL_CHOICE=2 ;;
+        --verify)  INSTALL_CHOICE=3 ;;
+        --help|-h)
+            echo "Usage: ./install.sh [--full|--core|--verify]"
+            echo ""
+            echo "  --full     Full install (system packages + whisper.cpp + llama.cpp + models)"
+            echo "  --core     Core only (system packages — no AI voice responder components)"
+            echo "  --verify   Verify only (check what's already installed)"
+            echo ""
+            echo "  If no flag is provided, an interactive menu is shown."
+            exit 0
+            ;;
+    esac
+done
+
 echo ""
 echo -e "${BOLD}═══════════════════════════════════════════════════════════════${NC}"
 echo -e "${BOLD}  UQC — Universal Quantum Codec${NC}"
@@ -764,13 +850,15 @@ detect_distro
 log "Detected: $DISTRO_NAME (family: $PKG_FAMILY)"
 echo ""
 
-# Check if user wants full install or just verify
-echo "Installation options:"
-echo "  1) Full install (system packages + whisper.cpp + llama.cpp + models)"
-echo "  2) Core only (system packages — no AI voice responder components)"
-echo "  3) Verify only (check what's already installed)"
-echo ""
-read -rp "Enter choice [1-3]: " INSTALL_CHOICE
+# Interactive prompt if no CLI flag was provided
+if [[ -z "$INSTALL_CHOICE" ]]; then
+    echo "Installation options:"
+    echo "  1) Full install (system packages + whisper.cpp + llama.cpp + models)"
+    echo "  2) Core only (system packages — no AI voice responder components)"
+    echo "  3) Verify only (check what's already installed)"
+    echo ""
+    read -rp "Enter choice [1-3]: " INSTALL_CHOICE
+fi
 
 setup_sudo
 
@@ -781,6 +869,7 @@ case "$INSTALL_CHOICE" in
         check_hackrf
         setup_whisper
         setup_llama
+        setup_web_frontend
         set_permissions
         update_paths
         verify_installation || true
@@ -790,6 +879,7 @@ case "$INSTALL_CHOICE" in
         install_system_packages
         ensure_numpy
         check_hackrf
+        setup_web_frontend
         set_permissions
         update_paths
         verify_installation || true

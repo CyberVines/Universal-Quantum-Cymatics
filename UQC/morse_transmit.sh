@@ -689,7 +689,8 @@ if [[ "$TX_SOURCE" == "6" ]]; then
     echo " 11) Olivia 16/500"
     echo " 12) Olivia 32/1000"
     echo " 13) FT8"
-    read -rp "Enter choice [0-13]: " SA_DEC
+    echo " 14) Musical Cipher (chromatic tones)"
+    read -rp "Enter choice [0-14]: " SA_DEC
     case "$SA_DEC" in
         0)  SA_DECODE="DECODE_AUTO";    DEC_LABEL="Auto-detect" ;;
         1)  SA_DECODE="DECODE_CW";      DEC_LABEL="CW / Morse" ;;
@@ -705,6 +706,7 @@ if [[ "$TX_SOURCE" == "6" ]]; then
         11) SA_DECODE="DECODE_OLIVIA16";DEC_LABEL="Olivia 16/500" ;;
         12) SA_DECODE="DECODE_OLIVIA32";DEC_LABEL="Olivia 32/1000" ;;
         13) SA_DECODE="DECODE_FT8";     DEC_LABEL="FT8" ;;
+        14) SA_DECODE="DECODE_MUSIC_CIPHER"; DEC_LABEL="Musical Cipher" ;;
         *)  echo "Invalid."; exit 1 ;;
     esac
 
@@ -924,7 +926,8 @@ if [[ "$TX_SOURCE" == "8" ]]; then
                 echo "  5) MATH     — Pi, Phi, Fibonacci, primes, entropy"
                 echo "  6) WORD     — word/sentence detection"
                 echo "  7) PATTERN  — repeating patterns, palindromes"
-                read -rp "Enter choice [1-7]: " CAT_CHOICE
+                echo "  8) MUSIC    — musical cipher (chromatic tones)"
+                read -rp "Enter choice [1-8]: " CAT_CHOICE
                 case "$CAT_CHOICE" in
                     1) QCAT="SYSTEM" ;;
                     2) QCAT="SIGNAL" ;;
@@ -933,6 +936,7 @@ if [[ "$TX_SOURCE" == "8" ]]; then
                     5) QCAT="MATH" ;;
                     6) QCAT="WORD" ;;
                     7) QCAT="PATTERN" ;;
+                    8) QCAT="MUSIC" ;;
                     *) echo "Invalid."; continue ;;
                 esac
                 echo ""
@@ -1051,7 +1055,8 @@ echo "  6) Weak Signal (FT8/FT4/WSPR/JT65)"
 echo "  7) Analog (AM/NBFM/WBFM/SSB)"
 echo "  8) Packet / Data (AX.25/APRS)"
 echo "  9) THOR (IFK+ MFSK)"
-read -rp "Enter choice [1-9]: " CAT
+echo " 10) Musical Cipher (A=C4 … Z=C#6, chromatic)"
+read -rp "Enter choice [1-10]: " CAT
 
 case "$CAT" in
     1) # CW / Morse
@@ -1186,6 +1191,20 @@ case "$CAT" in
         ;;
     9) # THOR
         MODE="THOR100"; MODE_LABEL="THOR 100 (64-tone IFK+, 100 baud, ~6400 Hz BW)"
+        ;;
+    10) # Musical Cipher
+        echo ""
+        echo "  Musical Cipher: A=1 B=2 C=3 … Z=26, 0=space"
+        echo "  Each letter → chromatic tone (C4 through C#6)"
+        echo ""
+        echo "  Octave 4: A=C4  B=C#4 C=D4  D=D#4 E=E4  F=F4"
+        echo "            G=F#4 H=G4  I=G#4 J=A4  K=A#4 L=B4"
+        echo "  Octave 5: M=C5  N=C#5 O=D5  P=D#5 Q=E5  R=F5"
+        echo "            S=F#5 T=G5  U=G#5 V=A5  W=A#5 X=B5"
+        echo "  Octave 6: Y=C6  Z=C#6"
+        echo "  Space  → silence (word boundary)"
+        echo ""
+        MODE="MUSIC_CIPHER"; MODE_LABEL="Musical Cipher (chromatic A=C4…Z=C#6, 4 sym/sec)"
         ;;
     *)
         echo "Invalid category."
